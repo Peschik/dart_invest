@@ -7,6 +7,9 @@ final class GoalScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('Goal $id')));
+    return Scaffold(
+      appBar: AppBar(title: Text('Goal $id')),
+      body: Center(child: Text('Тут будеть целя')),
+    );
   }
 }

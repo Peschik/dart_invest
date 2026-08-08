@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_study/app/theme/app_colors.dart';
 import 'package:flutter_study/app/theme/theme_mode_provider.dart';
 import 'package:flutter_study/l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 class _Header extends ConsumerWidget {
   const _Header();
@@ -30,6 +31,7 @@ final class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -47,6 +49,13 @@ final class HomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   padding: const EdgeInsets.all(10),
+
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.push('/goals/1');
+                    },
+                    child: Text('К цели номер 1'),
+                  ),
                 ),
               ),
             ],
