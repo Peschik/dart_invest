@@ -15,7 +15,7 @@ class _Header extends ConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(l10n.navHome),
+        Text(l10n.greetings),
         IconButton(
           onPressed: () => ref.read(themeModeProvider.notifier).toggle(),
           icon: Icon(isDarkMode ? Icons.light_mode : Icons.dark_mode),

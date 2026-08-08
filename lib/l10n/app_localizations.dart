@@ -98,10 +98,16 @@ abstract class AppLocalizations {
     Locale('ru'),
   ];
 
-  /// No description provided for @navHome.
+  /// No description provided for @greetings.
   ///
   /// In ru, this message translates to:
   /// **'Доброе утро, Артем! 🖖'**
+  String get greetings;
+
+  /// No description provided for @navHome.
+  ///
+  /// In ru, this message translates to:
+  /// **'Главная'**
   String get navHome;
 
   /// No description provided for @navAssets.

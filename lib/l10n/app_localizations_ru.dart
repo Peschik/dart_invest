@@ -9,7 +9,10 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get navHome => 'Доброе утро, Артем! 🖖';
+  String get greetings => 'Доброе утро, Артем! 🖖';
+
+  @override
+  String get navHome => 'Главная';
 
   @override
   String get navAssets => 'Активы';

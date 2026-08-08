@@ -35,6 +35,19 @@ abstract final class AppTheme {
         elevation: 0,
       ),
       extensions: <ThemeExtension<dynamic>>[colors],
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.fixed,
+        unselectedItemColor: colors.onSurface,
+        selectedLabelStyle: TextStyle(
+          color: colors.primary,
+          fontSize: 12,
+        ),
+        unselectedLabelStyle: TextStyle(
+          color: colors.onSurface,
+          fontSize: 12,
+        ),
+        selectedItemColor: colors.primary,
+      )
     );
   }
 }

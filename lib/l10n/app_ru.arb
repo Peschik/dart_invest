@@ -1,6 +1,7 @@
 {
   "@@locale": "ru",
-  "navHome": "Доброе утро, Артем! 🖖",
+  "greetings": "Доброе утро, Артем! 🖖",
+  "navHome": "Главная",
   "navAssets": "Активы",
   "navOperations": "Операции",
   "navAnalytics": "Аналитика",

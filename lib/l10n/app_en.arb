@@ -1,6 +1,7 @@
 {
   "@@locale": "en",
-  "navHome": "Good morning, Artyom! 🖖",
+  "greetings": "Good morning, Artyom! 🖖",
+  "navHome": "Home",
   "navAssets": "Assets",
   "navOperations": "Operations",
   "navAnalytics": "Analytics",
