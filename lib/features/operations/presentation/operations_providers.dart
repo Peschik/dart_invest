@@ -29,6 +29,10 @@ class OperationsNotifier extends AsyncNotifier<List<Operation>> {
       await _repo.updateOperation(operation);
       return _repo.getOperations();
     });
+
+    if (!state.hasError) {
+      ref.invalidate(operationProvider(operation.id));
+    }
   }
 
   Future<void> deleteOperation(String id) async {
@@ -38,6 +42,10 @@ class OperationsNotifier extends AsyncNotifier<List<Operation>> {
       await _repo.deleteOperation(id);
       return _repo.getOperations();
     });
+
+    if (!state.hasError) {
+      ref.invalidate(operationProvider(id));
+    }
   }
 }
 

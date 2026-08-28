@@ -37,7 +37,7 @@ final class OperationsScreen extends ConsumerWidget {
                 context.push('/operations/${operation.id}/edit');
               },
               child: ListTile(
-                title: Text(operation.type.name),
+                title: Text(operation.description ?? operation.type.name),
                 subtitle: Text(operation.date.toString()),
                 trailing: Text(
                   '$sign${formatMoney(operation.amount)}',
