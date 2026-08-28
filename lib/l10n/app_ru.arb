@@ -7,5 +7,9 @@
   "navAnalytics": "Аналитика",
   "addActionTitle": "Добавить",
   "familyCapital": "Семейный капитал",
-  "operation": "Операция"
+  "operation": "Операция",
+  "operationsEmpty": "Пока нет операций",
+  "operationDelete": "Удалить",
+  "operationDeleteConfirm": "Удалить эту операцию?",
+  "operationsLoadError": "Не удалось загрузить операции"
 }

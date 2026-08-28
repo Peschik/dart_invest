@@ -7,5 +7,9 @@
   "navAnalytics": "Analytics",
   "addActionTitle": "Add",
   "familyCapital": "Family capital",
-  "operation": "Operation"
+  "operation": "Operation",
+  "operationsEmpty": "No operations yet",
+  "operationDelete": "Delete",
+  "operationDeleteConfirm": "Delete this operation?",
+  "operationsLoadError": "Couldn't load operations"
 }

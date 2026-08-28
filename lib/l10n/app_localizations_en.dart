@@ -31,4 +31,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get operation => 'Operation';
+
+  @override
+  String get operationsEmpty => 'No operations yet';
+
+  @override
+  String get operationDelete => 'Delete';
+
+  @override
+  String get operationDeleteConfirm => 'Delete this operation?';
+
+  @override
+  String get operationsLoadError => 'Couldn\'t load operations';
 }

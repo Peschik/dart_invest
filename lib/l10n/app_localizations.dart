@@ -145,6 +145,30 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Операция'**
   String get operation;
+
+  /// No description provided for @operationsEmpty.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пока нет операций'**
+  String get operationsEmpty;
+
+  /// No description provided for @operationDelete.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалить'**
+  String get operationDelete;
+
+  /// No description provided for @operationDeleteConfirm.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалить эту операцию?'**
+  String get operationDeleteConfirm;
+
+  /// No description provided for @operationsLoadError.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не удалось загрузить операции'**
+  String get operationsLoadError;
 }
 
 class _AppLocalizationsDelegate

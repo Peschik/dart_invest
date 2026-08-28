@@ -31,4 +31,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get operation => 'Операция';
+
+  @override
+  String get operationsEmpty => 'Пока нет операций';
+
+  @override
+  String get operationDelete => 'Удалить';
+
+  @override
+  String get operationDeleteConfirm => 'Удалить эту операцию?';
+
+  @override
+  String get operationsLoadError => 'Не удалось загрузить операции';
 }

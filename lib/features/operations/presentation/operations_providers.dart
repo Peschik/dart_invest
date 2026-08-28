@@ -36,8 +36,6 @@ class OperationsNotifier extends AsyncNotifier<List<Operation>> {
   }
 
   Future<void> deleteOperation(String id) async {
-    state = const AsyncLoading();
-
     state = await AsyncValue.guard(() async {
       await _repo.deleteOperation(id);
       return _repo.getOperations();
