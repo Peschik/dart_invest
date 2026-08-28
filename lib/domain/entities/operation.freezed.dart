@@ -283,4 +283,273 @@ as String?,
 
 }
 
+/// @nodoc
+mixin _$NewOperation {
+
+ OperationType get type; int get amount; DateTime get date; String? get assetId; String? get description;
+/// Create a copy of NewOperation
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$NewOperationCopyWith<NewOperation> get copyWith => _$NewOperationCopyWithImpl<NewOperation>(this as NewOperation, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NewOperation&&(identical(other.type, type) || other.type == type)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.date, date) || other.date == date)&&(identical(other.assetId, assetId) || other.assetId == assetId)&&(identical(other.description, description) || other.description == description));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,type,amount,date,assetId,description);
+
+@override
+String toString() {
+  return 'NewOperation(type: $type, amount: $amount, date: $date, assetId: $assetId, description: $description)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $NewOperationCopyWith<$Res>  {
+  factory $NewOperationCopyWith(NewOperation value, $Res Function(NewOperation) _then) = _$NewOperationCopyWithImpl;
+@useResult
+$Res call({
+ OperationType type, int amount, DateTime date, String? assetId, String? description
+});
+
+
+
+
+}
+/// @nodoc
+class _$NewOperationCopyWithImpl<$Res>
+    implements $NewOperationCopyWith<$Res> {
+  _$NewOperationCopyWithImpl(this._self, this._then);
+
+  final NewOperation _self;
+  final $Res Function(NewOperation) _then;
+
+/// Create a copy of NewOperation
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? amount = null,Object? date = null,Object? assetId = freezed,Object? description = freezed,}) {
+  return _then(_self.copyWith(
+type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as OperationType,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
+as int,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as DateTime,assetId: freezed == assetId ? _self.assetId : assetId // ignore: cast_nullable_to_non_nullable
+as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [NewOperation].
+extension NewOperationPatterns on NewOperation {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _NewOperation value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _NewOperation() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _NewOperation value)  $default,){
+final _that = this;
+switch (_that) {
+case _NewOperation():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _NewOperation value)?  $default,){
+final _that = this;
+switch (_that) {
+case _NewOperation() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( OperationType type,  int amount,  DateTime date,  String? assetId,  String? description)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _NewOperation() when $default != null:
+return $default(_that.type,_that.amount,_that.date,_that.assetId,_that.description);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( OperationType type,  int amount,  DateTime date,  String? assetId,  String? description)  $default,) {final _that = this;
+switch (_that) {
+case _NewOperation():
+return $default(_that.type,_that.amount,_that.date,_that.assetId,_that.description);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( OperationType type,  int amount,  DateTime date,  String? assetId,  String? description)?  $default,) {final _that = this;
+switch (_that) {
+case _NewOperation() when $default != null:
+return $default(_that.type,_that.amount,_that.date,_that.assetId,_that.description);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class _NewOperation implements NewOperation {
+  const _NewOperation({required this.type, required this.amount, required this.date, this.assetId, this.description});
+  
+
+@override final  OperationType type;
+@override final  int amount;
+@override final  DateTime date;
+@override final  String? assetId;
+@override final  String? description;
+
+/// Create a copy of NewOperation
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$NewOperationCopyWith<_NewOperation> get copyWith => __$NewOperationCopyWithImpl<_NewOperation>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NewOperation&&(identical(other.type, type) || other.type == type)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.date, date) || other.date == date)&&(identical(other.assetId, assetId) || other.assetId == assetId)&&(identical(other.description, description) || other.description == description));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,type,amount,date,assetId,description);
+
+@override
+String toString() {
+  return 'NewOperation(type: $type, amount: $amount, date: $date, assetId: $assetId, description: $description)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$NewOperationCopyWith<$Res> implements $NewOperationCopyWith<$Res> {
+  factory _$NewOperationCopyWith(_NewOperation value, $Res Function(_NewOperation) _then) = __$NewOperationCopyWithImpl;
+@override @useResult
+$Res call({
+ OperationType type, int amount, DateTime date, String? assetId, String? description
+});
+
+
+
+
+}
+/// @nodoc
+class __$NewOperationCopyWithImpl<$Res>
+    implements _$NewOperationCopyWith<$Res> {
+  __$NewOperationCopyWithImpl(this._self, this._then);
+
+  final _NewOperation _self;
+  final $Res Function(_NewOperation) _then;
+
+/// Create a copy of NewOperation
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? amount = null,Object? date = null,Object? assetId = freezed,Object? description = freezed,}) {
+  return _then(_NewOperation(
+type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as OperationType,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
+as int,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as DateTime,assetId: freezed == assetId ? _self.assetId : assetId // ignore: cast_nullable_to_non_nullable
+as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
 // dart format on

@@ -3,6 +3,7 @@ import 'package:flutter_study/data/local/app_database.dart';
 import 'package:flutter_study/data/mappers/operation_mapper.dart';
 import 'package:flutter_study/domain/entities/operation.dart';
 import 'package:flutter_study/domain/repositories/operation_repository.dart';
+import 'package:uuid/uuid.dart';
 
 class DriftOperationRepository implements OperationRepository {
   DriftOperationRepository(this._db);
@@ -30,8 +31,17 @@ class DriftOperationRepository implements OperationRepository {
   }
 
   @override
-  Future<Operation> createOperation(Operation operation) async {
-    final row = OperationMapper.toCompanion(operation);
+  Future<Operation> createOperation(NewOperation operation) async {
+    final row = OperationMapper.toCompanion(
+      Operation(
+        id: const Uuid().v4(),
+        type: operation.type,
+        amount: operation.amount,
+        date: operation.date,
+        description: operation.description,
+        assetId: operation.assetId,
+      ),
+    );
     final inserted = await _db.into(_db.operationsTable).insertReturning(row);
 
     return OperationMapper.toDomain(inserted);
@@ -66,16 +76,14 @@ class DriftOperationRepository implements OperationRepository {
     if (count > 0) return;
 
     await createOperation(
-      Operation(
-        id: '1',
+      NewOperation(
         type: OperationType.income,
         amount: 1000,
         date: DateTime(2026, 1, 1, 10),
       ),
     );
     await createOperation(
-      Operation(
-        id: '2',
+      NewOperation(
         type: OperationType.expense,
         amount: 500,
         date: DateTime(2026, 1, 2, 10),

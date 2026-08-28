@@ -139,6 +139,12 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Семейный капитал'**
   String get familyCapital;
+
+  /// No description provided for @operation.
+  ///
+  /// In ru, this message translates to:
+  /// **'Операция'**
+  String get operation;
 }
 
 class _AppLocalizationsDelegate

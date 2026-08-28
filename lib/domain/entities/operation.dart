@@ -17,3 +17,14 @@ abstract class Operation with _$Operation {
     String? description,
   }) = _Operation;
 }
+
+@freezed
+abstract class NewOperation with _$NewOperation {
+  const factory NewOperation({
+    required OperationType type,
+    required int amount,
+    required DateTime date,
+    String? assetId,
+    String? description,
+  }) = _NewOperation;
+}

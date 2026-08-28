@@ -1,5 +1,6 @@
 import 'package:flutter_study/domain/entities/operation.dart';
 import 'package:flutter_study/domain/repositories/operation_repository.dart';
+import 'package:uuid/uuid.dart';
 
 class MockOperationRepository implements OperationRepository {
   final List<Operation> operations = [
@@ -38,9 +39,15 @@ class MockOperationRepository implements OperationRepository {
   }
 
   @override
-  Future<Operation> createOperation(Operation operation) async {
+  Future<Operation> createOperation(NewOperation newOperation) async {
     await Future<void>.delayed(const Duration(milliseconds: 400));
-
+    final operation = Operation(
+      id: const Uuid().v4(),
+      type: newOperation.type,
+      amount: newOperation.amount,
+      date: newOperation.date,
+      description: newOperation.description,
+    );
     operations.add(operation);
 
     return operation;
@@ -50,7 +57,7 @@ class MockOperationRepository implements OperationRepository {
   Future<Operation> updateOperation(Operation operation) async {
     await Future<void>.delayed(const Duration(milliseconds: 400));
 
-    operations.removeWhere((operation) => operation.id == operation.id);
+    operations.removeWhere((listOperation) => listOperation.id == operation.id);
     operations.add(operation);
 
     return operation;
@@ -60,6 +67,6 @@ class MockOperationRepository implements OperationRepository {
   Future<void> deleteOperation(String id) async {
     await Future<void>.delayed(const Duration(milliseconds: 400));
 
-    operations.removeWhere((operation) => operation.id == id);
+    operations.removeWhere((listOperation) => listOperation.id == id);
   }
 }

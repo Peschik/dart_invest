@@ -28,4 +28,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get familyCapital => 'Family capital';
+
+  @override
+  String get operation => 'Operation';
 }

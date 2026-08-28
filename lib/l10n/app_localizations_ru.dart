@@ -28,4 +28,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get familyCapital => 'Семейный капитал';
+
+  @override
+  String get operation => 'Операция';
 }
