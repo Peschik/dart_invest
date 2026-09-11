@@ -6,22 +6,24 @@ abstract final class OperationMapper {
   static Operation toDomain(OperationsTableData row) {
     return Operation(
       id: row.id,
-      type: OperationType.values[row.type],
+      type: OperationType.values.byName(row.type).name,
       amount: row.amount,
       date: row.date,
       assetId: row.assetId,
       description: row.description,
+      category: row.category,
     );
   }
 
   static OperationsTableCompanion toCompanion(Operation operation) {
     return OperationsTableCompanion.insert(
       id: operation.id,
-      type: operation.type.index,
+      type: operation.type,
       amount: operation.amount,
       date: operation.date,
       assetId: Value(operation.assetId),
       description: Value(operation.description),
+      category: Value(operation.category),
     );
   }
 }

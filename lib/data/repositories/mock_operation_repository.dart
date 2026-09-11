@@ -6,29 +6,29 @@ class MockOperationRepository implements OperationRepository {
   final List<Operation> operations = [
     Operation(
       id: '1',
-      type: OperationType.income,
+      type: OperationType.income.name,
       amount: 1000,
       date: DateTime(2026, 1, 1, 10, 0, 0),
     ),
     Operation(
       id: '2',
-      type: OperationType.income,
+      type: OperationType.income.name,
       amount: 1000,
       date: DateTime(2026, 1, 1, 10, 0, 0),
     ),
     Operation(
       id: '3',
-      type: OperationType.expense,
+      type: OperationType.expense.name,
       amount: 500,
       date: DateTime(2026, 1, 2, 10, 0, 0),
     ),
   ];
 
   @override
-  Future<List<Operation>> getOperations() async {
+  Future<List<Operation>> getOperations({String? type}) async {
     await Future<void>.delayed(const Duration(milliseconds: 400));
 
-    return operations;
+    return operations.where((operation) => type == null ? true : operation.type == type).toList();
   }
 
   @override
@@ -57,6 +57,10 @@ class MockOperationRepository implements OperationRepository {
   Future<Operation> updateOperation(Operation operation) async {
     await Future<void>.delayed(const Duration(milliseconds: 400));
 
+    if (operations.any((listOperation) => listOperation.id == operation.id) == false) {
+      throw Exception('Operation not found');
+    }
+
     operations.removeWhere((listOperation) => listOperation.id == operation.id);
     operations.add(operation);
 
@@ -66,6 +70,11 @@ class MockOperationRepository implements OperationRepository {
   @override
   Future<void> deleteOperation(String id) async {
     await Future<void>.delayed(const Duration(milliseconds: 400));
+
+    if (operations.any((listOperation) => listOperation.id == id) ==
+        false) {
+      throw Exception('Operation not found');
+    }
 
     operations.removeWhere((listOperation) => listOperation.id == id);
   }

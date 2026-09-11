@@ -11,14 +11,15 @@ class DriftOperationRepository implements OperationRepository {
   final AppDatabase _db;
 
   @override
-  Future<List<Operation>> getOperations() async {
-    await _ensureSeed();
+  Future<List<Operation>> getOperations({String? type}) async {
+    final query = (_db.select(_db.operationsTable)
+      ..orderBy([(table) => OrderingTerm.desc(table.date)]));
 
-    final rows = await (_db.select(
-      _db.operationsTable,
-    )..orderBy([(table) => OrderingTerm.desc(table.date)])).get();
+    if (type != null) {
+      query.where((table) => table.type.equals(type));
+    }
 
-    return rows.map(OperationMapper.toDomain).toList();
+    return (await query.get()).map(OperationMapper.toDomain).toList();
   }
 
   @override
@@ -67,7 +68,7 @@ class DriftOperationRepository implements OperationRepository {
     if (deletedRows == 0) throw Exception('Failed to delete operation');
   }
 
-  Future<void> _ensureSeed() async {
+  Future<void> ensureSeed() async {
     final count = await _db
         .select(_db.operationsTable)
         .get()
@@ -77,14 +78,14 @@ class DriftOperationRepository implements OperationRepository {
 
     await createOperation(
       NewOperation(
-        type: OperationType.income,
+        type: OperationType.income.name,
         amount: 1000,
         date: DateTime(2026, 1, 1, 10),
       ),
     );
     await createOperation(
       NewOperation(
-        type: OperationType.expense,
+        type: OperationType.expense.name,
         amount: 500,
         date: DateTime(2026, 1, 2, 10),
       ),

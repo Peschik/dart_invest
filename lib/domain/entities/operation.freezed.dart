@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Operation {
 
- String get id; OperationType get type; int get amount; DateTime get date; String? get assetId; String? get description;
+ String get id; String get type; int get amount; DateTime get date; String? get assetId; String? get description; String? get category;
 /// Create a copy of Operation
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $OperationCopyWith<Operation> get copyWith => _$OperationCopyWithImpl<Operation>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Operation&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.date, date) || other.date == date)&&(identical(other.assetId, assetId) || other.assetId == assetId)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Operation&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.date, date) || other.date == date)&&(identical(other.assetId, assetId) || other.assetId == assetId)&&(identical(other.description, description) || other.description == description)&&(identical(other.category, category) || other.category == category));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,type,amount,date,assetId,description);
+int get hashCode => Object.hash(runtimeType,id,type,amount,date,assetId,description,category);
 
 @override
 String toString() {
-  return 'Operation(id: $id, type: $type, amount: $amount, date: $date, assetId: $assetId, description: $description)';
+  return 'Operation(id: $id, type: $type, amount: $amount, date: $date, assetId: $assetId, description: $description, category: $category)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $OperationCopyWith<$Res>  {
   factory $OperationCopyWith(Operation value, $Res Function(Operation) _then) = _$OperationCopyWithImpl;
 @useResult
 $Res call({
- String id, OperationType type, int amount, DateTime date, String? assetId, String? description
+ String id, String type, int amount, DateTime date, String? assetId, String? description, String? category
 });
 
 
@@ -62,14 +62,15 @@ class _$OperationCopyWithImpl<$Res>
 
 /// Create a copy of Operation
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? type = null,Object? amount = null,Object? date = null,Object? assetId = freezed,Object? description = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? type = null,Object? amount = null,Object? date = null,Object? assetId = freezed,Object? description = freezed,Object? category = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as OperationType,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
+as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,assetId: freezed == assetId ? _self.assetId : assetId // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,category: freezed == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -155,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  OperationType type,  int amount,  DateTime date,  String? assetId,  String? description)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String type,  int amount,  DateTime date,  String? assetId,  String? description,  String? category)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Operation() when $default != null:
-return $default(_that.id,_that.type,_that.amount,_that.date,_that.assetId,_that.description);case _:
+return $default(_that.id,_that.type,_that.amount,_that.date,_that.assetId,_that.description,_that.category);case _:
   return orElse();
 
 }
@@ -176,10 +177,10 @@ return $default(_that.id,_that.type,_that.amount,_that.date,_that.assetId,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  OperationType type,  int amount,  DateTime date,  String? assetId,  String? description)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String type,  int amount,  DateTime date,  String? assetId,  String? description,  String? category)  $default,) {final _that = this;
 switch (_that) {
 case _Operation():
-return $default(_that.id,_that.type,_that.amount,_that.date,_that.assetId,_that.description);case _:
+return $default(_that.id,_that.type,_that.amount,_that.date,_that.assetId,_that.description,_that.category);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +197,10 @@ return $default(_that.id,_that.type,_that.amount,_that.date,_that.assetId,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  OperationType type,  int amount,  DateTime date,  String? assetId,  String? description)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String type,  int amount,  DateTime date,  String? assetId,  String? description,  String? category)?  $default,) {final _that = this;
 switch (_that) {
 case _Operation() when $default != null:
-return $default(_that.id,_that.type,_that.amount,_that.date,_that.assetId,_that.description);case _:
+return $default(_that.id,_that.type,_that.amount,_that.date,_that.assetId,_that.description,_that.category);case _:
   return null;
 
 }
@@ -211,15 +212,16 @@ return $default(_that.id,_that.type,_that.amount,_that.date,_that.assetId,_that.
 
 
 class _Operation implements Operation {
-  const _Operation({required this.id, required this.type, required this.amount, required this.date, this.assetId, this.description});
+  const _Operation({required this.id, required this.type, required this.amount, required this.date, this.assetId, this.description, this.category});
   
 
 @override final  String id;
-@override final  OperationType type;
+@override final  String type;
 @override final  int amount;
 @override final  DateTime date;
 @override final  String? assetId;
 @override final  String? description;
+@override final  String? category;
 
 /// Create a copy of Operation
 /// with the given fields replaced by the non-null parameter values.
@@ -231,16 +233,16 @@ _$OperationCopyWith<_Operation> get copyWith => __$OperationCopyWithImpl<_Operat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Operation&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.date, date) || other.date == date)&&(identical(other.assetId, assetId) || other.assetId == assetId)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Operation&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.date, date) || other.date == date)&&(identical(other.assetId, assetId) || other.assetId == assetId)&&(identical(other.description, description) || other.description == description)&&(identical(other.category, category) || other.category == category));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,type,amount,date,assetId,description);
+int get hashCode => Object.hash(runtimeType,id,type,amount,date,assetId,description,category);
 
 @override
 String toString() {
-  return 'Operation(id: $id, type: $type, amount: $amount, date: $date, assetId: $assetId, description: $description)';
+  return 'Operation(id: $id, type: $type, amount: $amount, date: $date, assetId: $assetId, description: $description, category: $category)';
 }
 
 
@@ -251,7 +253,7 @@ abstract mixin class _$OperationCopyWith<$Res> implements $OperationCopyWith<$Re
   factory _$OperationCopyWith(_Operation value, $Res Function(_Operation) _then) = __$OperationCopyWithImpl;
 @override @useResult
 $Res call({
- String id, OperationType type, int amount, DateTime date, String? assetId, String? description
+ String id, String type, int amount, DateTime date, String? assetId, String? description, String? category
 });
 
 
@@ -268,14 +270,15 @@ class __$OperationCopyWithImpl<$Res>
 
 /// Create a copy of Operation
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? type = null,Object? amount = null,Object? date = null,Object? assetId = freezed,Object? description = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? type = null,Object? amount = null,Object? date = null,Object? assetId = freezed,Object? description = freezed,Object? category = freezed,}) {
   return _then(_Operation(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as OperationType,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
+as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,assetId: freezed == assetId ? _self.assetId : assetId // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,category: freezed == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -286,7 +289,7 @@ as String?,
 /// @nodoc
 mixin _$NewOperation {
 
- OperationType get type; int get amount; DateTime get date; String? get assetId; String? get description;
+ String get type; int get amount; DateTime get date; String? get assetId; String? get description; String? get category;
 /// Create a copy of NewOperation
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -297,16 +300,16 @@ $NewOperationCopyWith<NewOperation> get copyWith => _$NewOperationCopyWithImpl<N
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NewOperation&&(identical(other.type, type) || other.type == type)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.date, date) || other.date == date)&&(identical(other.assetId, assetId) || other.assetId == assetId)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NewOperation&&(identical(other.type, type) || other.type == type)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.date, date) || other.date == date)&&(identical(other.assetId, assetId) || other.assetId == assetId)&&(identical(other.description, description) || other.description == description)&&(identical(other.category, category) || other.category == category));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,type,amount,date,assetId,description);
+int get hashCode => Object.hash(runtimeType,type,amount,date,assetId,description,category);
 
 @override
 String toString() {
-  return 'NewOperation(type: $type, amount: $amount, date: $date, assetId: $assetId, description: $description)';
+  return 'NewOperation(type: $type, amount: $amount, date: $date, assetId: $assetId, description: $description, category: $category)';
 }
 
 
@@ -317,7 +320,7 @@ abstract mixin class $NewOperationCopyWith<$Res>  {
   factory $NewOperationCopyWith(NewOperation value, $Res Function(NewOperation) _then) = _$NewOperationCopyWithImpl;
 @useResult
 $Res call({
- OperationType type, int amount, DateTime date, String? assetId, String? description
+ String type, int amount, DateTime date, String? assetId, String? description, String? category
 });
 
 
@@ -334,13 +337,14 @@ class _$NewOperationCopyWithImpl<$Res>
 
 /// Create a copy of NewOperation
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? amount = null,Object? date = null,Object? assetId = freezed,Object? description = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? amount = null,Object? date = null,Object? assetId = freezed,Object? description = freezed,Object? category = freezed,}) {
   return _then(_self.copyWith(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as OperationType,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
+as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,assetId: freezed == assetId ? _self.assetId : assetId // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,category: freezed == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -426,10 +430,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( OperationType type,  int amount,  DateTime date,  String? assetId,  String? description)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String type,  int amount,  DateTime date,  String? assetId,  String? description,  String? category)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _NewOperation() when $default != null:
-return $default(_that.type,_that.amount,_that.date,_that.assetId,_that.description);case _:
+return $default(_that.type,_that.amount,_that.date,_that.assetId,_that.description,_that.category);case _:
   return orElse();
 
 }
@@ -447,10 +451,10 @@ return $default(_that.type,_that.amount,_that.date,_that.assetId,_that.descripti
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( OperationType type,  int amount,  DateTime date,  String? assetId,  String? description)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String type,  int amount,  DateTime date,  String? assetId,  String? description,  String? category)  $default,) {final _that = this;
 switch (_that) {
 case _NewOperation():
-return $default(_that.type,_that.amount,_that.date,_that.assetId,_that.description);case _:
+return $default(_that.type,_that.amount,_that.date,_that.assetId,_that.description,_that.category);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -467,10 +471,10 @@ return $default(_that.type,_that.amount,_that.date,_that.assetId,_that.descripti
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( OperationType type,  int amount,  DateTime date,  String? assetId,  String? description)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String type,  int amount,  DateTime date,  String? assetId,  String? description,  String? category)?  $default,) {final _that = this;
 switch (_that) {
 case _NewOperation() when $default != null:
-return $default(_that.type,_that.amount,_that.date,_that.assetId,_that.description);case _:
+return $default(_that.type,_that.amount,_that.date,_that.assetId,_that.description,_that.category);case _:
   return null;
 
 }
@@ -482,14 +486,15 @@ return $default(_that.type,_that.amount,_that.date,_that.assetId,_that.descripti
 
 
 class _NewOperation implements NewOperation {
-  const _NewOperation({required this.type, required this.amount, required this.date, this.assetId, this.description});
+  const _NewOperation({required this.type, required this.amount, required this.date, this.assetId, this.description, this.category});
   
 
-@override final  OperationType type;
+@override final  String type;
 @override final  int amount;
 @override final  DateTime date;
 @override final  String? assetId;
 @override final  String? description;
+@override final  String? category;
 
 /// Create a copy of NewOperation
 /// with the given fields replaced by the non-null parameter values.
@@ -501,16 +506,16 @@ _$NewOperationCopyWith<_NewOperation> get copyWith => __$NewOperationCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NewOperation&&(identical(other.type, type) || other.type == type)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.date, date) || other.date == date)&&(identical(other.assetId, assetId) || other.assetId == assetId)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NewOperation&&(identical(other.type, type) || other.type == type)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.date, date) || other.date == date)&&(identical(other.assetId, assetId) || other.assetId == assetId)&&(identical(other.description, description) || other.description == description)&&(identical(other.category, category) || other.category == category));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,type,amount,date,assetId,description);
+int get hashCode => Object.hash(runtimeType,type,amount,date,assetId,description,category);
 
 @override
 String toString() {
-  return 'NewOperation(type: $type, amount: $amount, date: $date, assetId: $assetId, description: $description)';
+  return 'NewOperation(type: $type, amount: $amount, date: $date, assetId: $assetId, description: $description, category: $category)';
 }
 
 
@@ -521,7 +526,7 @@ abstract mixin class _$NewOperationCopyWith<$Res> implements $NewOperationCopyWi
   factory _$NewOperationCopyWith(_NewOperation value, $Res Function(_NewOperation) _then) = __$NewOperationCopyWithImpl;
 @override @useResult
 $Res call({
- OperationType type, int amount, DateTime date, String? assetId, String? description
+ String type, int amount, DateTime date, String? assetId, String? description, String? category
 });
 
 
@@ -538,13 +543,14 @@ class __$NewOperationCopyWithImpl<$Res>
 
 /// Create a copy of NewOperation
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? amount = null,Object? date = null,Object? assetId = freezed,Object? description = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? amount = null,Object? date = null,Object? assetId = freezed,Object? description = freezed,Object? category = freezed,}) {
   return _then(_NewOperation(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as OperationType,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
+as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,assetId: freezed == assetId ? _self.assetId : assetId // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,category: freezed == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

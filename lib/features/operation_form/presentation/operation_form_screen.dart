@@ -10,7 +10,7 @@ class _OperationFormScreenState extends ConsumerState<OperationFormScreen> {
   late final TextEditingController _descriptionController;
   late final TextEditingController _dateController;
 
-  OperationType _type = OperationType.income;
+  String _type = OperationType.income.name;
   DateTime? _date = DateTime.now();
   bool _isSaving = false;
 
@@ -19,8 +19,9 @@ class _OperationFormScreenState extends ConsumerState<OperationFormScreen> {
     super.initState();
     _amountController = TextEditingController();
     _descriptionController = TextEditingController();
-    _dateController = TextEditingController();
-    _dateController.text = DateFormat('dd.MM.yyyy').format(_date!);
+    _dateController = TextEditingController(
+      text: DateFormat('dd.MM.yyyy').format(_date ?? DateTime.now()),
+    );
   }
 
   @override
@@ -80,19 +81,21 @@ class _OperationFormScreenState extends ConsumerState<OperationFormScreen> {
         await saveNewOperation(amount, description);
       }
 
-      final error = ref.read(operationsProvider).hasError;
-
-      if (error) SnackBar(content: Text(error.toString()));
-      if (mounted && !error) {
-        Navigator.of(context).pop();
-      }
+      Navigator.of(context).pop();
     } catch (e) {
       print(e);
+
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.toString())));
+      }
     } finally {
-      if (!context.mounted) return;
-      setState(() {
-        _isSaving = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isSaving = false;
+        });
+      }
     }
   }
 
@@ -121,18 +124,18 @@ class _OperationFormScreenState extends ConsumerState<OperationFormScreen> {
             SegmentedButton(
               segments: [
                 ButtonSegment(
-                  value: OperationType.income,
+                  value: OperationType.income.name,
                   label: Text('Income'),
                 ),
                 ButtonSegment(
-                  value: OperationType.expense,
+                  value: OperationType.expense.name,
                   label: Text('Expense'),
                 ),
               ],
               selected: {_type},
               onSelectionChanged: (value) {
                 setState(() {
-                  _type = value.firstOrNull ?? OperationType.income;
+                  _type = value.firstOrNull ?? OperationType.income.name;
                 });
               },
             ),

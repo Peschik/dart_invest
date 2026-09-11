@@ -20,11 +20,11 @@ class $OperationsTableTable extends OperationsTable
   );
   static const VerificationMeta _typeMeta = const VerificationMeta('type');
   @override
-  late final GeneratedColumn<int> type = GeneratedColumn<int>(
+  late final GeneratedColumn<String> type = GeneratedColumn<String>(
     'type',
     aliasedName,
     false,
-    type: DriftSqlType.int,
+    type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
   static const VerificationMeta _amountMeta = const VerificationMeta('amount');
@@ -67,6 +67,17 @@ class $OperationsTableTable extends OperationsTable
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _categoryMeta = const VerificationMeta(
+    'category',
+  );
+  @override
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+    'category',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -75,6 +86,7 @@ class $OperationsTableTable extends OperationsTable
     date,
     assetId,
     description,
+    category,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -132,6 +144,12 @@ class $OperationsTableTable extends OperationsTable
         ),
       );
     }
+    if (data.containsKey('category')) {
+      context.handle(
+        _categoryMeta,
+        category.isAcceptableOrUnknown(data['category']!, _categoryMeta),
+      );
+    }
     return context;
   }
 
@@ -146,7 +164,7 @@ class $OperationsTableTable extends OperationsTable
         data['${effectivePrefix}id'],
       )!,
       type: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
+        DriftSqlType.string,
         data['${effectivePrefix}type'],
       )!,
       amount: attachedDatabase.typeMapping.read(
@@ -165,6 +183,10 @@ class $OperationsTableTable extends OperationsTable
         DriftSqlType.string,
         data['${effectivePrefix}description'],
       ),
+      category: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}category'],
+      ),
     );
   }
 
@@ -177,11 +199,12 @@ class $OperationsTableTable extends OperationsTable
 class OperationsTableData extends DataClass
     implements Insertable<OperationsTableData> {
   final String id;
-  final int type;
+  final String type;
   final int amount;
   final DateTime date;
   final String? assetId;
   final String? description;
+  final String? category;
   const OperationsTableData({
     required this.id,
     required this.type,
@@ -189,12 +212,13 @@ class OperationsTableData extends DataClass
     required this.date,
     this.assetId,
     this.description,
+    this.category,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
-    map['type'] = Variable<int>(type);
+    map['type'] = Variable<String>(type);
     map['amount'] = Variable<int>(amount);
     map['date'] = Variable<DateTime>(date);
     if (!nullToAbsent || assetId != null) {
@@ -202,6 +226,9 @@ class OperationsTableData extends DataClass
     }
     if (!nullToAbsent || description != null) {
       map['description'] = Variable<String>(description);
+    }
+    if (!nullToAbsent || category != null) {
+      map['category'] = Variable<String>(category);
     }
     return map;
   }
@@ -218,6 +245,9 @@ class OperationsTableData extends DataClass
       description: description == null && nullToAbsent
           ? const Value.absent()
           : Value(description),
+      category: category == null && nullToAbsent
+          ? const Value.absent()
+          : Value(category),
     );
   }
 
@@ -228,11 +258,12 @@ class OperationsTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return OperationsTableData(
       id: serializer.fromJson<String>(json['id']),
-      type: serializer.fromJson<int>(json['type']),
+      type: serializer.fromJson<String>(json['type']),
       amount: serializer.fromJson<int>(json['amount']),
       date: serializer.fromJson<DateTime>(json['date']),
       assetId: serializer.fromJson<String?>(json['assetId']),
       description: serializer.fromJson<String?>(json['description']),
+      category: serializer.fromJson<String?>(json['category']),
     );
   }
   @override
@@ -240,21 +271,23 @@ class OperationsTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
-      'type': serializer.toJson<int>(type),
+      'type': serializer.toJson<String>(type),
       'amount': serializer.toJson<int>(amount),
       'date': serializer.toJson<DateTime>(date),
       'assetId': serializer.toJson<String?>(assetId),
       'description': serializer.toJson<String?>(description),
+      'category': serializer.toJson<String?>(category),
     };
   }
 
   OperationsTableData copyWith({
     String? id,
-    int? type,
+    String? type,
     int? amount,
     DateTime? date,
     Value<String?> assetId = const Value.absent(),
     Value<String?> description = const Value.absent(),
+    Value<String?> category = const Value.absent(),
   }) => OperationsTableData(
     id: id ?? this.id,
     type: type ?? this.type,
@@ -262,6 +295,7 @@ class OperationsTableData extends DataClass
     date: date ?? this.date,
     assetId: assetId.present ? assetId.value : this.assetId,
     description: description.present ? description.value : this.description,
+    category: category.present ? category.value : this.category,
   );
   OperationsTableData copyWithCompanion(OperationsTableCompanion data) {
     return OperationsTableData(
@@ -273,6 +307,7 @@ class OperationsTableData extends DataClass
       description: data.description.present
           ? data.description.value
           : this.description,
+      category: data.category.present ? data.category.value : this.category,
     );
   }
 
@@ -284,13 +319,15 @@ class OperationsTableData extends DataClass
           ..write('amount: $amount, ')
           ..write('date: $date, ')
           ..write('assetId: $assetId, ')
-          ..write('description: $description')
+          ..write('description: $description, ')
+          ..write('category: $category')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, type, amount, date, assetId, description);
+  int get hashCode =>
+      Object.hash(id, type, amount, date, assetId, description, category);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -300,16 +337,18 @@ class OperationsTableData extends DataClass
           other.amount == this.amount &&
           other.date == this.date &&
           other.assetId == this.assetId &&
-          other.description == this.description);
+          other.description == this.description &&
+          other.category == this.category);
 }
 
 class OperationsTableCompanion extends UpdateCompanion<OperationsTableData> {
   final Value<String> id;
-  final Value<int> type;
+  final Value<String> type;
   final Value<int> amount;
   final Value<DateTime> date;
   final Value<String?> assetId;
   final Value<String?> description;
+  final Value<String?> category;
   final Value<int> rowid;
   const OperationsTableCompanion({
     this.id = const Value.absent(),
@@ -318,15 +357,17 @@ class OperationsTableCompanion extends UpdateCompanion<OperationsTableData> {
     this.date = const Value.absent(),
     this.assetId = const Value.absent(),
     this.description = const Value.absent(),
+    this.category = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   OperationsTableCompanion.insert({
     required String id,
-    required int type,
+    required String type,
     required int amount,
     required DateTime date,
     this.assetId = const Value.absent(),
     this.description = const Value.absent(),
+    this.category = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        type = Value(type),
@@ -334,11 +375,12 @@ class OperationsTableCompanion extends UpdateCompanion<OperationsTableData> {
        date = Value(date);
   static Insertable<OperationsTableData> custom({
     Expression<String>? id,
-    Expression<int>? type,
+    Expression<String>? type,
     Expression<int>? amount,
     Expression<DateTime>? date,
     Expression<String>? assetId,
     Expression<String>? description,
+    Expression<String>? category,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -348,17 +390,19 @@ class OperationsTableCompanion extends UpdateCompanion<OperationsTableData> {
       if (date != null) 'date': date,
       if (assetId != null) 'asset_id': assetId,
       if (description != null) 'description': description,
+      if (category != null) 'category': category,
       if (rowid != null) 'rowid': rowid,
     });
   }
 
   OperationsTableCompanion copyWith({
     Value<String>? id,
-    Value<int>? type,
+    Value<String>? type,
     Value<int>? amount,
     Value<DateTime>? date,
     Value<String?>? assetId,
     Value<String?>? description,
+    Value<String?>? category,
     Value<int>? rowid,
   }) {
     return OperationsTableCompanion(
@@ -368,6 +412,7 @@ class OperationsTableCompanion extends UpdateCompanion<OperationsTableData> {
       date: date ?? this.date,
       assetId: assetId ?? this.assetId,
       description: description ?? this.description,
+      category: category ?? this.category,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -379,7 +424,7 @@ class OperationsTableCompanion extends UpdateCompanion<OperationsTableData> {
       map['id'] = Variable<String>(id.value);
     }
     if (type.present) {
-      map['type'] = Variable<int>(type.value);
+      map['type'] = Variable<String>(type.value);
     }
     if (amount.present) {
       map['amount'] = Variable<int>(amount.value);
@@ -392,6 +437,9 @@ class OperationsTableCompanion extends UpdateCompanion<OperationsTableData> {
     }
     if (description.present) {
       map['description'] = Variable<String>(description.value);
+    }
+    if (category.present) {
+      map['category'] = Variable<String>(category.value);
     }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
@@ -408,6 +456,7 @@ class OperationsTableCompanion extends UpdateCompanion<OperationsTableData> {
           ..write('date: $date, ')
           ..write('assetId: $assetId, ')
           ..write('description: $description, ')
+          ..write('category: $category, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -430,21 +479,23 @@ abstract class _$AppDatabase extends GeneratedDatabase {
 typedef $$OperationsTableTableCreateCompanionBuilder =
     OperationsTableCompanion Function({
       required String id,
-      required int type,
+      required String type,
       required int amount,
       required DateTime date,
       Value<String?> assetId,
       Value<String?> description,
+      Value<String?> category,
       Value<int> rowid,
     });
 typedef $$OperationsTableTableUpdateCompanionBuilder =
     OperationsTableCompanion Function({
       Value<String> id,
-      Value<int> type,
+      Value<String> type,
       Value<int> amount,
       Value<DateTime> date,
       Value<String?> assetId,
       Value<String?> description,
+      Value<String?> category,
       Value<int> rowid,
     });
 
@@ -462,7 +513,7 @@ class $$OperationsTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<int> get type => $composableBuilder(
+  ColumnFilters<String> get type => $composableBuilder(
     column: $table.type,
     builder: (column) => ColumnFilters(column),
   );
@@ -486,6 +537,11 @@ class $$OperationsTableTableFilterComposer
     column: $table.description,
     builder: (column) => ColumnFilters(column),
   );
+
+  ColumnFilters<String> get category => $composableBuilder(
+    column: $table.category,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$OperationsTableTableOrderingComposer
@@ -502,7 +558,7 @@ class $$OperationsTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<int> get type => $composableBuilder(
+  ColumnOrderings<String> get type => $composableBuilder(
     column: $table.type,
     builder: (column) => ColumnOrderings(column),
   );
@@ -526,6 +582,11 @@ class $$OperationsTableTableOrderingComposer
     column: $table.description,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get category => $composableBuilder(
+    column: $table.category,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$OperationsTableTableAnnotationComposer
@@ -540,7 +601,7 @@ class $$OperationsTableTableAnnotationComposer
   GeneratedColumn<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get type =>
+  GeneratedColumn<String> get type =>
       $composableBuilder(column: $table.type, builder: (column) => column);
 
   GeneratedColumn<int> get amount =>
@@ -556,6 +617,9 @@ class $$OperationsTableTableAnnotationComposer
     column: $table.description,
     builder: (column) => column,
   );
+
+  GeneratedColumn<String> get category =>
+      $composableBuilder(column: $table.category, builder: (column) => column);
 }
 
 class $$OperationsTableTableTableManager
@@ -596,11 +660,12 @@ class $$OperationsTableTableTableManager
           updateCompanionCallback:
               ({
                 Value<String> id = const Value.absent(),
-                Value<int> type = const Value.absent(),
+                Value<String> type = const Value.absent(),
                 Value<int> amount = const Value.absent(),
                 Value<DateTime> date = const Value.absent(),
                 Value<String?> assetId = const Value.absent(),
                 Value<String?> description = const Value.absent(),
+                Value<String?> category = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => OperationsTableCompanion(
                 id: id,
@@ -609,16 +674,18 @@ class $$OperationsTableTableTableManager
                 date: date,
                 assetId: assetId,
                 description: description,
+                category: category,
                 rowid: rowid,
               ),
           createCompanionCallback:
               ({
                 required String id,
-                required int type,
+                required String type,
                 required int amount,
                 required DateTime date,
                 Value<String?> assetId = const Value.absent(),
                 Value<String?> description = const Value.absent(),
+                Value<String?> category = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => OperationsTableCompanion.insert(
                 id: id,
@@ -627,6 +694,7 @@ class $$OperationsTableTableTableManager
                 date: date,
                 assetId: assetId,
                 description: description,
+                category: category,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_study/l10n/app_localizations.dart';
-import 'package:flutter_study/l10n/app_localizations_en.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_study/app/theme/app_colors.dart';
 import 'package:flutter_study/core/format/money_format.dart';
@@ -36,6 +35,7 @@ final class OperationsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final filter = ref.watch(operationsFilterProvider);
     final operations = ref.watch(operationsProvider);
     final l10n = AppLocalizations.of(context);
 
@@ -46,54 +46,84 @@ final class OperationsScreen extends ConsumerWidget {
             Center(child: Text('Error while getting operations: $error')),
 
         data: (operations) {
-          if (operations.isEmpty) {
-            return Center(child: Text(l10n?.operationsEmpty ?? ''));
-          }
-
-          return ListView.builder(
-            itemCount: operations.length,
-            itemBuilder: (context, index) {
-              final operation = operations[index];
-
-              String sign = '+';
-              Color color = context.colors.profit;
-
-              if (operation.type == OperationType.expense) {
-                sign = '-';
-                color = context.colors.loss;
-              }
-
-              return Dismissible(
-                key: ValueKey(operation.id),
-                direction: DismissDirection.endToStart,
-                background: Container(
-                  alignment: Alignment.centerRight,
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  color: Theme.of(context).colorScheme.error,
-                  child: Icon(
-                    Icons.delete,
-                    color: Theme.of(context).colorScheme.onError,
-                  ),
-                ),
-                confirmDismiss: (_) => _confirmDelete(context),
-                onDismissed: (_) {
-                  ref
-                      .read(operationsProvider.notifier)
-                      .deleteOperation(operation.id);
+          return Column(
+            spacing: 20,
+            children: [
+              SegmentedButton(
+                segments: [
+                  ButtonSegment(value: 'all', label: Text('All')),
+                  ButtonSegment(value: 'income', label: Text('Income')),
+                  ButtonSegment(value: 'expense', label: Text('Expense')),
+                ],
+                selected: {filter ?? 'all'},
+                onSelectionChanged: (value) {
+                  final selected = value.first;
+                  ref.read(operationsFilterProvider.notifier).state =
+                      selected == 'all' ? null : selected;
                 },
-                child: ListTile(
-                  title: Text(operation.description ?? operation.type.name),
-                  subtitle: Text(operation.date.toString()),
-                  trailing: Text(
-                    '$sign${formatMoney(operation.amount)}',
-                    style: TextStyle(color: color),
-                  ),
-                  onTap: () {
-                    context.push('/operations/${operation.id}/edit');
-                  },
-                ),
-              );
-            },
+              ),
+              Expanded(
+                child: operations.isEmpty
+                    ? Center(child: Text(l10n?.operationsEmpty ?? ''))
+                    : ListView.builder(
+                        itemCount: operations.length,
+                        itemBuilder: (context, index) {
+                          final operation = operations[index];
+
+                          String sign = '+';
+                          Color color = context.colors.profit;
+
+                          if (operation.type == OperationType.expense.name) {
+                            sign = '-';
+                            color = context.colors.loss;
+                          }
+
+                          return Dismissible(
+                            key: ValueKey(operation.id),
+                            direction: DismissDirection.endToStart,
+                            background: Container(
+                              alignment: Alignment.centerRight,
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              color: Theme.of(context).colorScheme.error,
+                              child: Icon(
+                                Icons.delete,
+                                color: Theme.of(context).colorScheme.onError,
+                              ),
+                            ),
+                            confirmDismiss: (_) => _confirmDelete(context),
+                            onDismissed: (_) {
+                              try {
+                                ref
+                                    .read(operationsProvider.notifier)
+                                    .deleteOperation(operation.id);
+                              } catch (e) {
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(e.toString())),
+                                  );
+                                }
+                              }
+                            },
+                            child: ListTile(
+                              title: Text(
+                                operation.description ?? operation.type,
+                              ),
+                              subtitle: Text(operation.date.toString()),
+                              trailing: Text(
+                                '$sign${formatMoney(operation.amount)}',
+                                style: TextStyle(color: color),
+                              ),
+                              onTap: () {
+                                context.push(
+                                  '/operations/${operation.id}/edit',
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+              ),
+            ],
           );
         },
       ),

@@ -3,7 +3,7 @@ import 'package:drift/drift.dart';
 class OperationsTable extends Table {
   TextColumn get id => text()();
 
-  IntColumn get type => integer()();
+  TextColumn get type => text()();
 
   IntColumn get amount => integer()();
 
@@ -12,6 +12,8 @@ class OperationsTable extends Table {
   TextColumn get assetId => text().nullable()();
 
   TextColumn get description => text().nullable()();
+
+  TextColumn get category => text().nullable()();
 
   @override
   Set<Column> get primaryKey => {id};
