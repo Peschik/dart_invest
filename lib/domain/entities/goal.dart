@@ -13,11 +13,12 @@ abstract class Goal with _$Goal {
     required num current,
   }) = _Goal;
 
-  int get progress {
+  double get progress {
     if (target <= 0) return 0;
 
-    return ((current / target) * 100).clamp(0, 100).toInt();
+    return (current / target).clamp(0, 1).toDouble();
   }
 
-  double get remaining => (target.toDouble() - current.toDouble()).clamp(0, double.infinity);
+  double get remaining =>
+      (target.toDouble() - current.toDouble()).clamp(0, double.infinity);
 }
