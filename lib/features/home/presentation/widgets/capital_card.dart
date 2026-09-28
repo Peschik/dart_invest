@@ -12,7 +12,7 @@ final class CapitalCard extends StatelessWidget {
     required this.changePercent,
   });
 
-  final String capital;
+  final double capital;
   final double changePercent;
 
   @override
@@ -23,11 +23,11 @@ final class CapitalCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(l10n.familyCapital),
-          Text(formatMoney(num.parse(capital))),
+          Text(formatMoney(capital)),
           Text(
             formatSignedPercent(changePercent),
             style: TextStyle(
-              color: changePercent > 0
+              color: changePercent >= 0
                   ? context.colors.profit
                   : context.colors.loss,
             ),

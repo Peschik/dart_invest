@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_study/app/theme/theme_mode_provider.dart';
-
+import 'package:go_router/go_router.dart';
 import 'package:flutter_study/features/home/presentation/home_providers.dart';
 import 'package:flutter_study/features/home/presentation/widgets/capital_card.dart';
 import 'package:flutter_study/features/home/presentation/widgets/goal_card.dart';
@@ -35,12 +35,16 @@ final class HomeScreen extends ConsumerWidget {
                   data: (data) => ListView(
                     children: [
                       CapitalCard(
-                        capital: data.capital.toString(),
+                        capital: data.capital,
                         changePercent: data.capitalChangePercent,
                       ),
                       if (data.primaryGoal != null) ...[
                         const SizedBox(height: 8),
-                        GoalCard(goal: data.primaryGoal!),
+                        GestureDetector(
+                          onTap: () =>
+                              context.push('/goals/${data.primaryGoal?.id}'),
+                          child: GoalCard(goal: data.primaryGoal!),
+                        ),
                       ],
 
                       const SizedBox(height: 8),
