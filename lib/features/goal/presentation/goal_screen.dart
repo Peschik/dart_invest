@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_study/core/format/money_format.dart';
 import 'package:flutter_study/core/widgets/app_section_card.dart';
 import 'package:flutter_study/features/goal/presentation/goals_providers.dart';
+import 'package:flutter_study/l10n/app_localizations.dart';
 
 final class GoalScreen extends ConsumerWidget {
   const GoalScreen({super.key, required this.id});
@@ -11,6 +12,7 @@ final class GoalScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final goalAsync = ref.watch(goalProvider(id));
 
     return Scaffold(
@@ -18,12 +20,12 @@ final class GoalScreen extends ConsumerWidget {
         title: goalAsync.when(
           data: (goal) => Text(goal?.title ?? id),
           loading: () => const Text(''),
-          error: (_, __) => const Text(''),
+          error: (error, _) => Text(l10n.goalLoadError),
         ),
       ),
       body: goalAsync.when(
         data: (goal) {
-          if (goal == null) return const Center(child: Text('Goal not found'));
+          if (goal == null) return Center(child: Text(l10n.goalNotFound));
 
           return Padding(
             padding: const EdgeInsets.all(16),
@@ -36,9 +38,9 @@ final class GoalScreen extends ConsumerWidget {
                     height: 96,
                     child: CircularProgressIndicator(value: goal.progress),
                   ),
-                  Text(formatMoney(goal.current)),
-                  Text(formatMoney(goal.remaining)),
-                  Text(formatMoney(goal.target)),
+                  Text('${l10n.goalSaved}: ${formatMoney(goal.current)}'),
+                  Text('${l10n.goalLeft}: ${formatMoney(goal.remaining)}'),
+                  Text('${l10n.goalTarget}: ${formatMoney(goal.target)}'),
                 ],
               ),
             ),

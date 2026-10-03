@@ -11,5 +11,19 @@
   "operationsEmpty": "No operations yet",
   "operationDelete": "Delete",
   "operationDeleteConfirm": "Delete this operation?",
-  "operationsLoadError": "Couldn't load operations"
+  "operationsLoadError": "Couldn't load operations",
+  "portfolioDistribution": "Portfolio distribution",
+  "accountsSection": "Accounts",
+  "seeAll": "See all",
+  "goalSaved": "Saved",
+  "goalLeft": "Left",
+  "goalTarget": "Goal",
+  "goalNotFound": "Goal not found",
+  "homeLoadError": "Home load error {error}",
+  "goalLoadError": "Goal load error",
+  "assetTypeStock": "Stocks",
+  "assetTypeMetal": "Metals",
+  "assetTypeCurrency": "Currencies",
+  "assetTypeCash": "Cash",
+  "assetTypeCommercialEstate": "Commercial estate"
 }

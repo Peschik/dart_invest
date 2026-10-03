@@ -7,8 +7,8 @@ class MockGoalRepository implements GoalRepository {
     Goal(
       id: '1',
       title: 'Купить квартиру',
-      target: 16_000_000,
-      current: 12_500_000,
+      target: 18_000_000,
+      current: 13_700_000,
     ),
     Goal(
       id: '2',

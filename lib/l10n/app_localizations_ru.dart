@@ -43,4 +43,48 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get operationsLoadError => 'Не удалось загрузить операции';
+
+  @override
+  String get portfolioDistribution => 'Распределение портфеля';
+
+  @override
+  String get accountsSection => 'Счета';
+
+  @override
+  String get seeAll => 'Смотреть все';
+
+  @override
+  String get goalSaved => 'Накоплено';
+
+  @override
+  String get goalLeft => 'Осталось';
+
+  @override
+  String get goalTarget => 'Цель';
+
+  @override
+  String get goalNotFound => 'Цель не найдена';
+
+  @override
+  String get goalLoadError => 'Не удалось загрузить цель';
+
+  @override
+  String homeLoadError(Object error) {
+    return 'Не удалось загрузить главную';
+  }
+
+  @override
+  String get assetTypeStock => 'Акции';
+
+  @override
+  String get assetTypeMetal => 'Металлы';
+
+  @override
+  String get assetTypeCurrency => 'Валюта';
+
+  @override
+  String get assetTypeCash => 'Кэш';
+
+  @override
+  String get assetTypeCommercialEstate => 'Недвижимость';
 }

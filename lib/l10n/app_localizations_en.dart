@@ -43,4 +43,48 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get operationsLoadError => 'Couldn\'t load operations';
+
+  @override
+  String get portfolioDistribution => 'Portfolio distribution';
+
+  @override
+  String get accountsSection => 'Accounts';
+
+  @override
+  String get seeAll => 'See all';
+
+  @override
+  String get goalSaved => 'Saved';
+
+  @override
+  String get goalLeft => 'Left';
+
+  @override
+  String get goalTarget => 'Goal';
+
+  @override
+  String get goalNotFound => 'Goal not found';
+
+  @override
+  String get goalLoadError => 'Goal load error';
+
+  @override
+  String homeLoadError(Object error) {
+    return 'Home load error $error';
+  }
+
+  @override
+  String get assetTypeStock => 'Stocks';
+
+  @override
+  String get assetTypeMetal => 'Metals';
+
+  @override
+  String get assetTypeCurrency => 'Currencies';
+
+  @override
+  String get assetTypeCash => 'Cash';
+
+  @override
+  String get assetTypeCommercialEstate => 'Commercial estate';
 }

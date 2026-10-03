@@ -11,5 +11,19 @@
   "operationsEmpty": "Пока нет операций",
   "operationDelete": "Удалить",
   "operationDeleteConfirm": "Удалить эту операцию?",
-  "operationsLoadError": "Не удалось загрузить операции"
+  "operationsLoadError": "Не удалось загрузить операции",
+  "portfolioDistribution": "Распределение портфеля",
+  "accountsSection": "Счета",
+  "seeAll": "Смотреть все",
+  "goalSaved": "Накоплено",
+  "goalLeft": "Осталось",
+  "goalTarget": "Цель",
+  "goalNotFound": "Цель не найдена",
+  "goalLoadError": "Не удалось загрузить цель",
+  "homeLoadError": "Не удалось загрузить главную",
+  "assetTypeStock": "Акции",
+  "assetTypeMetal": "Металлы",
+  "assetTypeCurrency": "Валюта",
+  "assetTypeCash": "Кэш",
+  "assetTypeCommercialEstate": "Недвижимость"
 }

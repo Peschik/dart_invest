@@ -169,6 +169,90 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Не удалось загрузить операции'**
   String get operationsLoadError;
+
+  /// No description provided for @portfolioDistribution.
+  ///
+  /// In ru, this message translates to:
+  /// **'Распределение портфеля'**
+  String get portfolioDistribution;
+
+  /// No description provided for @accountsSection.
+  ///
+  /// In ru, this message translates to:
+  /// **'Счета'**
+  String get accountsSection;
+
+  /// No description provided for @seeAll.
+  ///
+  /// In ru, this message translates to:
+  /// **'Смотреть все'**
+  String get seeAll;
+
+  /// No description provided for @goalSaved.
+  ///
+  /// In ru, this message translates to:
+  /// **'Накоплено'**
+  String get goalSaved;
+
+  /// No description provided for @goalLeft.
+  ///
+  /// In ru, this message translates to:
+  /// **'Осталось'**
+  String get goalLeft;
+
+  /// No description provided for @goalTarget.
+  ///
+  /// In ru, this message translates to:
+  /// **'Цель'**
+  String get goalTarget;
+
+  /// No description provided for @goalNotFound.
+  ///
+  /// In ru, this message translates to:
+  /// **'Цель не найдена'**
+  String get goalNotFound;
+
+  /// No description provided for @goalLoadError.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не удалось загрузить цель'**
+  String get goalLoadError;
+
+  /// No description provided for @homeLoadError.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не удалось загрузить главную'**
+  String homeLoadError(Object error);
+
+  /// No description provided for @assetTypeStock.
+  ///
+  /// In ru, this message translates to:
+  /// **'Акции'**
+  String get assetTypeStock;
+
+  /// No description provided for @assetTypeMetal.
+  ///
+  /// In ru, this message translates to:
+  /// **'Металлы'**
+  String get assetTypeMetal;
+
+  /// No description provided for @assetTypeCurrency.
+  ///
+  /// In ru, this message translates to:
+  /// **'Валюта'**
+  String get assetTypeCurrency;
+
+  /// No description provided for @assetTypeCash.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кэш'**
+  String get assetTypeCash;
+
+  /// No description provided for @assetTypeCommercialEstate.
+  ///
+  /// In ru, this message translates to:
+  /// **'Недвижимость'**
+  String get assetTypeCommercialEstate;
 }
 
 class _AppLocalizationsDelegate

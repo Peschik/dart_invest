@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study/app/theme/app_colors.dart';
+import 'package:flutter_study/l10n/app_localizations.dart';
 import 'package:flutter_study/domain/entities/asset.dart';
 import 'package:flutter_study/features/home/presentation/home_dashboard.dart';
 import 'package:flutter_study/core/widgets/app_section_card.dart';
@@ -63,18 +64,18 @@ final class PortfolioCard extends StatelessWidget {
 
   final List<PortfolioSlice> portfolio;
 
-  String _getAssetTypeLabel(AssetType type) {
+  String _getAssetTypeLabel(AssetType type, AppLocalizations l10n) {
     switch (type) {
       case AssetType.cash:
-        return 'Cash';
+        return l10n.assetTypeCash;
       case AssetType.stock:
-        return 'Stocks';
+        return l10n.assetTypeStock;
       case AssetType.metal:
-        return 'Metal';
+        return l10n.assetTypeMetal;
       case AssetType.currency:
-        return 'Currency';
+        return l10n.assetTypeCurrency;
       case AssetType.commercialEstate:
-        return 'Commercial Estate';
+        return l10n.assetTypeCommercialEstate;
     }
   }
 
@@ -90,10 +91,11 @@ final class PortfolioCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return AppSectionCard(
       child: Column(
         children: [
-          Row(children: [Text('Распределение портфеля')]),
+          Row(children: [Text(l10n.portfolioDistribution)]),
 
           Row(
             children: [
@@ -122,7 +124,7 @@ final class PortfolioCard extends StatelessWidget {
                     for (final slice in portfolio)
                       Row(
                         children: [
-                          Text(_getAssetTypeLabel(slice.type)),
+                          Text(_getAssetTypeLabel(slice.type, l10n)),
                           const SizedBox(width: 8),
                           Text('${(slice.share * 100).toStringAsFixed(2)}%'),
                         ],
