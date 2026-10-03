@@ -13,6 +13,14 @@ abstract class Asset with _$Asset {
     required double value,
     required double changePercent,
   }) = _Asset;
+}
 
-  
+@freezed
+abstract class NewAsset with _$NewAsset {
+  const factory NewAsset({
+    required String name,
+    required AssetType type,
+    required double value,
+    required double changePercent,
+  }) = _NewAsset;
 }
