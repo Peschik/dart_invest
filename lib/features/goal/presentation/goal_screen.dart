@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_study/app/theme/app_colors.dart';
 import 'package:flutter_study/core/format/money_format.dart';
 import 'package:flutter_study/core/widgets/app_section_card.dart';
 import 'package:flutter_study/features/goal/presentation/goals_providers.dart';
@@ -29,19 +30,41 @@ final class GoalScreen extends ConsumerWidget {
 
           return Padding(
             padding: const EdgeInsets.all(16),
-            child: AppSectionCard(
-              child: Column(
-                children: [
-                  Text('${(goal.progress * 100).round()}%'),
-                  SizedBox(
-                    width: 96,
-                    height: 96,
-                    child: CircularProgressIndicator(value: goal.progress),
-                  ),
-                  Text('${l10n.goalSaved}: ${formatMoney(goal.current)}'),
-                  Text('${l10n.goalLeft}: ${formatMoney(goal.remaining)}'),
-                  Text('${l10n.goalTarget}: ${formatMoney(goal.target)}'),
-                ],
+            child: SizedBox(
+              width: double.infinity,
+              child: AppSectionCard(
+                child: Column(
+                  spacing: 8,
+                  children: [
+                    SizedBox(
+                      width: 128,
+                      height: 128,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          SizedBox.expand(
+                            child: CircularProgressIndicator(
+                              value: goal.progress,
+                              strokeWidth: 8,
+                              backgroundColor: context.colors.onSurface
+                                  .withValues(alpha: 0.1),
+                            ),
+                          ),
+                          Text(
+                            '${(goal.progress * 100).round()}%',
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text('${l10n.goalSaved}: ${formatMoney(goal.current)}'),
+                    Text('${l10n.goalLeft}: ${formatMoney(goal.remaining)}'),
+                    Text('${l10n.goalTarget}: ${formatMoney(goal.target)}'),
+                  ],
+                ),
               ),
             ),
           );

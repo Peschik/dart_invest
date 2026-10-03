@@ -3,7 +3,7 @@ import 'package:flutter_study/domain/repositories/account_repository.dart';
 
 class MockAccountRepository implements AccountRepository {
   final _mockAccounts = const [
-    Account(id: '1', bankName: 'ВТБ', balance: 6971000, changePercent: -0.82),
+    Account(id: '1', bankName: 'ВТБ', balance: 6471000, changePercent: -0.82),
     Account(
       id: '2',
       bankName: 'Сбербанк',

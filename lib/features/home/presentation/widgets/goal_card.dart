@@ -12,17 +12,36 @@ final class GoalCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppSectionCard(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 8,
         children: [
-          Text(goal.title),
-          Row(
+          Text(goal.title, textAlign: TextAlign.left),
+          Column(
             children: [
               SizedBox(
                 width: 72,
                 height: 72,
-                child: CircularProgressIndicator(
-                  value: goal.progress,
-                  strokeWidth: 8,
-                  color: context.colors.primary,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SizedBox.expand(
+                      child: CircularProgressIndicator(
+                        value: goal.progress,
+                        strokeWidth: 8,
+                        color: context.colors.primary,
+                        backgroundColor: context.colors.onSurface.withValues(
+                          alpha: 0.1,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '${(goal.progress * 100).round()}%',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
