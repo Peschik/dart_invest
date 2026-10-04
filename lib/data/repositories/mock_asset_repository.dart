@@ -68,6 +68,7 @@ class MockAssetRepository implements AssetRepository {
     return assets.where((asset) => asset.id == id).firstOrNull;
   }
 
+  @override
   Future<Asset> createAsset(NewAsset newAsset) async {
     await Future<void>.delayed(const Duration(milliseconds: 400));
 

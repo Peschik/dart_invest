@@ -463,17 +463,376 @@ class OperationsTableCompanion extends UpdateCompanion<OperationsTableData> {
   }
 }
 
+class $AssetsTableTable extends AssetsTable
+    with TableInfo<$AssetsTableTable, AssetsTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AssetsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
+  late final GeneratedColumn<String> type = GeneratedColumn<String>(
+    'type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _valueMeta = const VerificationMeta('value');
+  @override
+  late final GeneratedColumn<double> value = GeneratedColumn<double>(
+    'value',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _changePercentMeta = const VerificationMeta(
+    'changePercent',
+  );
+  @override
+  late final GeneratedColumn<double> changePercent = GeneratedColumn<double>(
+    'change_percent',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, name, type, value, changePercent];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'assets_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AssetsTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('type')) {
+      context.handle(
+        _typeMeta,
+        type.isAcceptableOrUnknown(data['type']!, _typeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_typeMeta);
+    }
+    if (data.containsKey('value')) {
+      context.handle(
+        _valueMeta,
+        value.isAcceptableOrUnknown(data['value']!, _valueMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_valueMeta);
+    }
+    if (data.containsKey('change_percent')) {
+      context.handle(
+        _changePercentMeta,
+        changePercent.isAcceptableOrUnknown(
+          data['change_percent']!,
+          _changePercentMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_changePercentMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AssetsTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AssetsTableData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      type: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}type'],
+      )!,
+      value: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}value'],
+      )!,
+      changePercent: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}change_percent'],
+      )!,
+    );
+  }
+
+  @override
+  $AssetsTableTable createAlias(String alias) {
+    return $AssetsTableTable(attachedDatabase, alias);
+  }
+}
+
+class AssetsTableData extends DataClass implements Insertable<AssetsTableData> {
+  final String id;
+  final String name;
+  final String type;
+  final double value;
+  final double changePercent;
+  const AssetsTableData({
+    required this.id,
+    required this.name,
+    required this.type,
+    required this.value,
+    required this.changePercent,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['name'] = Variable<String>(name);
+    map['type'] = Variable<String>(type);
+    map['value'] = Variable<double>(value);
+    map['change_percent'] = Variable<double>(changePercent);
+    return map;
+  }
+
+  AssetsTableCompanion toCompanion(bool nullToAbsent) {
+    return AssetsTableCompanion(
+      id: Value(id),
+      name: Value(name),
+      type: Value(type),
+      value: Value(value),
+      changePercent: Value(changePercent),
+    );
+  }
+
+  factory AssetsTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AssetsTableData(
+      id: serializer.fromJson<String>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      type: serializer.fromJson<String>(json['type']),
+      value: serializer.fromJson<double>(json['value']),
+      changePercent: serializer.fromJson<double>(json['changePercent']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'name': serializer.toJson<String>(name),
+      'type': serializer.toJson<String>(type),
+      'value': serializer.toJson<double>(value),
+      'changePercent': serializer.toJson<double>(changePercent),
+    };
+  }
+
+  AssetsTableData copyWith({
+    String? id,
+    String? name,
+    String? type,
+    double? value,
+    double? changePercent,
+  }) => AssetsTableData(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    type: type ?? this.type,
+    value: value ?? this.value,
+    changePercent: changePercent ?? this.changePercent,
+  );
+  AssetsTableData copyWithCompanion(AssetsTableCompanion data) {
+    return AssetsTableData(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      type: data.type.present ? data.type.value : this.type,
+      value: data.value.present ? data.value.value : this.value,
+      changePercent: data.changePercent.present
+          ? data.changePercent.value
+          : this.changePercent,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AssetsTableData(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('type: $type, ')
+          ..write('value: $value, ')
+          ..write('changePercent: $changePercent')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name, type, value, changePercent);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AssetsTableData &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.type == this.type &&
+          other.value == this.value &&
+          other.changePercent == this.changePercent);
+}
+
+class AssetsTableCompanion extends UpdateCompanion<AssetsTableData> {
+  final Value<String> id;
+  final Value<String> name;
+  final Value<String> type;
+  final Value<double> value;
+  final Value<double> changePercent;
+  final Value<int> rowid;
+  const AssetsTableCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.type = const Value.absent(),
+    this.value = const Value.absent(),
+    this.changePercent = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AssetsTableCompanion.insert({
+    required String id,
+    required String name,
+    required String type,
+    required double value,
+    required double changePercent,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       name = Value(name),
+       type = Value(type),
+       value = Value(value),
+       changePercent = Value(changePercent);
+  static Insertable<AssetsTableData> custom({
+    Expression<String>? id,
+    Expression<String>? name,
+    Expression<String>? type,
+    Expression<double>? value,
+    Expression<double>? changePercent,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (type != null) 'type': type,
+      if (value != null) 'value': value,
+      if (changePercent != null) 'change_percent': changePercent,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AssetsTableCompanion copyWith({
+    Value<String>? id,
+    Value<String>? name,
+    Value<String>? type,
+    Value<double>? value,
+    Value<double>? changePercent,
+    Value<int>? rowid,
+  }) {
+    return AssetsTableCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      type: type ?? this.type,
+      value: value ?? this.value,
+      changePercent: changePercent ?? this.changePercent,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (type.present) {
+      map['type'] = Variable<String>(type.value);
+    }
+    if (value.present) {
+      map['value'] = Variable<double>(value.value);
+    }
+    if (changePercent.present) {
+      map['change_percent'] = Variable<double>(changePercent.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AssetsTableCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('type: $type, ')
+          ..write('value: $value, ')
+          ..write('changePercent: $changePercent, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $OperationsTableTable operationsTable = $OperationsTableTable(
     this,
   );
+  late final $AssetsTableTable assetsTable = $AssetsTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [operationsTable];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    operationsTable,
+    assetsTable,
+  ];
 }
 
 typedef $$OperationsTableTableCreateCompanionBuilder =
@@ -726,10 +1085,214 @@ typedef $$OperationsTableTableProcessedTableManager =
       OperationsTableData,
       PrefetchHooks Function()
     >;
+typedef $$AssetsTableTableCreateCompanionBuilder =
+    AssetsTableCompanion Function({
+      required String id,
+      required String name,
+      required String type,
+      required double value,
+      required double changePercent,
+      Value<int> rowid,
+    });
+typedef $$AssetsTableTableUpdateCompanionBuilder =
+    AssetsTableCompanion Function({
+      Value<String> id,
+      Value<String> name,
+      Value<String> type,
+      Value<double> value,
+      Value<double> changePercent,
+      Value<int> rowid,
+    });
+
+class $$AssetsTableTableFilterComposer
+    extends Composer<_$AppDatabase, $AssetsTableTable> {
+  $$AssetsTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get type => $composableBuilder(
+    column: $table.type,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get value => $composableBuilder(
+    column: $table.value,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get changePercent => $composableBuilder(
+    column: $table.changePercent,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$AssetsTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $AssetsTableTable> {
+  $$AssetsTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get type => $composableBuilder(
+    column: $table.type,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get value => $composableBuilder(
+    column: $table.value,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get changePercent => $composableBuilder(
+    column: $table.changePercent,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$AssetsTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $AssetsTableTable> {
+  $$AssetsTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => column);
+
+  GeneratedColumn<double> get value =>
+      $composableBuilder(column: $table.value, builder: (column) => column);
+
+  GeneratedColumn<double> get changePercent => $composableBuilder(
+    column: $table.changePercent,
+    builder: (column) => column,
+  );
+}
+
+class $$AssetsTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $AssetsTableTable,
+          AssetsTableData,
+          $$AssetsTableTableFilterComposer,
+          $$AssetsTableTableOrderingComposer,
+          $$AssetsTableTableAnnotationComposer,
+          $$AssetsTableTableCreateCompanionBuilder,
+          $$AssetsTableTableUpdateCompanionBuilder,
+          (
+            AssetsTableData,
+            BaseReferences<_$AppDatabase, $AssetsTableTable, AssetsTableData>,
+          ),
+          AssetsTableData,
+          PrefetchHooks Function()
+        > {
+  $$AssetsTableTableTableManager(_$AppDatabase db, $AssetsTableTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AssetsTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AssetsTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AssetsTableTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> type = const Value.absent(),
+                Value<double> value = const Value.absent(),
+                Value<double> changePercent = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AssetsTableCompanion(
+                id: id,
+                name: name,
+                type: type,
+                value: value,
+                changePercent: changePercent,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String name,
+                required String type,
+                required double value,
+                required double changePercent,
+                Value<int> rowid = const Value.absent(),
+              }) => AssetsTableCompanion.insert(
+                id: id,
+                name: name,
+                type: type,
+                value: value,
+                changePercent: changePercent,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$AssetsTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $AssetsTableTable,
+      AssetsTableData,
+      $$AssetsTableTableFilterComposer,
+      $$AssetsTableTableOrderingComposer,
+      $$AssetsTableTableAnnotationComposer,
+      $$AssetsTableTableCreateCompanionBuilder,
+      $$AssetsTableTableUpdateCompanionBuilder,
+      (
+        AssetsTableData,
+        BaseReferences<_$AppDatabase, $AssetsTableTable, AssetsTableData>,
+      ),
+      AssetsTableData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
   $AppDatabaseManager(this._db);
   $$OperationsTableTableTableManager get operationsTable =>
       $$OperationsTableTableTableManager(_db, _db.operationsTable);
+  $$AssetsTableTableTableManager get assetsTable =>
+      $$AssetsTableTableTableManager(_db, _db.assetsTable);
 }
