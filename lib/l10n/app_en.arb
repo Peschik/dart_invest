@@ -25,5 +25,9 @@
   "assetTypeMetal": "Metals",
   "assetTypeCurrency": "Currencies",
   "assetTypeCash": "Cash",
-  "assetTypeCommercialEstate": "Commercial estate"
+  "assetTypeCommercialEstate": "Commercial estate",
+  "operationTypeAll": "All",
+  "operationTypeIncome": "Income",
+  "operationTypeExpense": "Expense",
+  "assetsTotalCost": "Total cost"
 }

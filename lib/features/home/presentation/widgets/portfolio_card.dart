@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study/app/theme/app_colors.dart';
+import 'package:flutter_study/core/utils/get_asset_type_label.dart';
 import 'package:flutter_study/l10n/app_localizations.dart';
 import 'package:flutter_study/domain/entities/asset.dart';
 import 'package:flutter_study/features/home/presentation/home_dashboard.dart';
@@ -64,21 +65,6 @@ final class PortfolioCard extends StatelessWidget {
 
   final List<PortfolioSlice> portfolio;
 
-  String _getAssetTypeLabel(AssetType type, AppLocalizations l10n) {
-    switch (type) {
-      case AssetType.cash:
-        return l10n.assetTypeCash;
-      case AssetType.stock:
-        return l10n.assetTypeStock;
-      case AssetType.metal:
-        return l10n.assetTypeMetal;
-      case AssetType.currency:
-        return l10n.assetTypeCurrency;
-      case AssetType.commercialEstate:
-        return l10n.assetTypeCommercialEstate;
-    }
-  }
-
   Color _colorFor(AssetType type, AppColors colors) {
     return switch (type) {
       AssetType.metal => colors.metal,
@@ -124,7 +110,7 @@ final class PortfolioCard extends StatelessWidget {
                     for (final slice in portfolio)
                       Row(
                         children: [
-                          Text(_getAssetTypeLabel(slice.type, l10n)),
+                          Text(getAssetTypeLabel(slice.type, l10n)),
                           const SizedBox(width: 8),
                           Text('${(slice.share * 100).toStringAsFixed(2)}%'),
                         ],

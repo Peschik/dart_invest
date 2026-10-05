@@ -87,4 +87,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get assetTypeCommercialEstate => 'Недвижимость';
+
+  @override
+  String get operationTypeAll => 'Все';
+
+  @override
+  String get operationTypeIncome => 'Поступление';
+
+  @override
+  String get operationTypeExpense => 'Вывод';
+
+  @override
+  String get assetsTotalCost => 'Общая стоимость';
 }

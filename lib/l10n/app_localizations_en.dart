@@ -87,4 +87,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get assetTypeCommercialEstate => 'Commercial estate';
+
+  @override
+  String get operationTypeAll => 'All';
+
+  @override
+  String get operationTypeIncome => 'Income';
+
+  @override
+  String get operationTypeExpense => 'Expense';
+
+  @override
+  String get assetsTotalCost => 'Total cost';
 }

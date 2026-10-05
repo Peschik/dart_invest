@@ -253,6 +253,30 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Недвижимость'**
   String get assetTypeCommercialEstate;
+
+  /// No description provided for @operationTypeAll.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все'**
+  String get operationTypeAll;
+
+  /// No description provided for @operationTypeIncome.
+  ///
+  /// In ru, this message translates to:
+  /// **'Поступление'**
+  String get operationTypeIncome;
+
+  /// No description provided for @operationTypeExpense.
+  ///
+  /// In ru, this message translates to:
+  /// **'Вывод'**
+  String get operationTypeExpense;
+
+  /// No description provided for @assetsTotalCost.
+  ///
+  /// In ru, this message translates to:
+  /// **'Общая стоимость'**
+  String get assetsTotalCost;
 }
 
 class _AppLocalizationsDelegate

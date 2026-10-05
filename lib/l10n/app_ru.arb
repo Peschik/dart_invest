@@ -25,5 +25,9 @@
   "assetTypeMetal": "Металлы",
   "assetTypeCurrency": "Валюта",
   "assetTypeCash": "Кэш",
-  "assetTypeCommercialEstate": "Недвижимость"
+  "assetTypeCommercialEstate": "Недвижимость",
+  "operationTypeAll": "Все",
+  "operationTypeIncome": "Поступление",
+  "operationTypeExpense": "Вывод",
+  "assetsTotalCost": "Общая стоимость"
 }

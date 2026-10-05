@@ -37,7 +37,7 @@ final class OperationsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final filter = ref.watch(operationsFilterProvider);
     final operations = ref.watch(operationsProvider);
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: operations.when(
@@ -51,9 +51,9 @@ final class OperationsScreen extends ConsumerWidget {
             children: [
               SegmentedButton(
                 segments: [
-                  ButtonSegment(value: 'all', label: Text('All')),
-                  ButtonSegment(value: 'income', label: Text('Income')),
-                  ButtonSegment(value: 'expense', label: Text('Expense')),
+                  ButtonSegment(value: 'all', label: Text(l10n.operationTypeAll)),
+                  ButtonSegment(value: 'income', label: Text(l10n.operationTypeIncome)),
+                  ButtonSegment(value: 'expense', label: Text(l10n.operationTypeExpense)),
                 ],
                 selected: {filter ?? 'all'},
                 onSelectionChanged: (value) {
