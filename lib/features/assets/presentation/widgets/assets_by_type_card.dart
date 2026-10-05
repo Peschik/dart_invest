@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_study/app/theme/app_colors.dart';
 import 'package:flutter_study/core/format/format_signed_percent.dart';
 import 'package:flutter_study/core/format/money_format.dart';
+import 'package:flutter_study/core/uikit/avatar.dart';
 import 'package:flutter_study/core/widgets/app_section_card.dart';
 import 'package:flutter_study/features/assets/presentation/asset_group.dart';
 
@@ -53,25 +54,34 @@ final class AssetsByTypeCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: Column(
-                          spacing: 4,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
                           children: [
-                            Text(
-                              asset.name,
-                              style: TextStyle(fontSize: baseFontFize),
+                            Avatar(
+                              name: asset.name,
+                              fallbackColor: context.colors.profit,
                             ),
+                            const SizedBox(width: 10),
+                            Column(
+                              spacing: 2,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  asset.name,
+                                  style: TextStyle(fontSize: baseFontFize),
+                                ),
 
-                            Text(
-                              '$share %',
-                              style: TextStyle(fontSize: smallFontFize),
+                                Text(
+                                  '$share %',
+                                  style: TextStyle(fontSize: smallFontFize),
+                                ),
+                              ],
                             ),
                           ],
                         ),
                       ),
 
                       Column(
-                        spacing: 4,
+                        spacing: 2,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
