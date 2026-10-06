@@ -4,6 +4,7 @@ import 'package:flutter_study/data/local/tables/operations_table.dart';
 import 'package:flutter_study/data/local/tables/assets_table.dart';
 import 'package:flutter_study/data/repositories/drift_asset_repository.dart';
 import 'package:flutter_study/data/repositories/drift_operation_repository.dart';
+import 'package:flutter_study/data/repositories/mock_asset_repository.dart';
 
 part 'app_database.g.dart';
 
@@ -12,10 +13,18 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   static QueryExecutor _openConnection() {
     return driftDatabase(name: 'flutter_study');
+  }
+
+  Future<void> updateAssetPresentation() async {
+    final repository = DriftAssetRepository(this);
+
+    await Future.wait(
+      MockAssetRepository().assets.map(repository.updateAssetPresentation),
+    );
   }
 
   @override
@@ -41,6 +50,12 @@ class AppDatabase extends _$AppDatabase {
       if (from < 4) {
         await m.createTable(assetsTable);
         await DriftAssetRepository(this).ensureSeed();
+      }
+
+      if (from < 5) {
+        await m.addColumn(assetsTable, assetsTable.color);
+        await m.addColumn(assetsTable, assetsTable.image);
+        await updateAssetPresentation();
       }
     },
   );

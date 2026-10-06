@@ -10,6 +10,8 @@ abstract final class AssetMapper {
       name: row.name,
       value: row.value,
       changePercent: row.changePercent,
+      color: row.color,
+      image: row.image,
     );
   }
 
@@ -20,6 +22,8 @@ abstract final class AssetMapper {
       type: asset.type.name,
       value: asset.value,
       changePercent: asset.changePercent,
+      color: Value(asset.color),
+      image: Value(asset.image),
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter_study/core/utils/get_asset_type_label.dart';
 import 'package:flutter_study/domain/entities/asset.dart';
 import 'package:flutter_study/features/assets/presentation/asset_group.dart';
 import 'package:flutter_study/features/assets/presentation/assets_providers.dart';
-import 'package:flutter_study/features/assets/presentation/widgets/asset_type_filter_segmented.dart';
+import 'package:flutter_study/features/assets/presentation/widgets/asset_type_filter.dart';
 import 'package:flutter_study/features/assets/presentation/widgets/assets_by_type_card.dart';
 import 'package:flutter_study/features/assets/presentation/widgets/total_cost_card.dart';
 import 'package:flutter_study/l10n/app_localizations.dart';
@@ -26,10 +26,9 @@ final class AssetsScreen extends ConsumerWidget {
 
         (currentGroup) {
           final total = currentGroup.totalValue + asset.value;
-          currentGroup.items.add(asset);
 
           return AssetGroup(
-            items: currentGroup.items,
+            items: [...currentGroup.items, asset],
             totalValue: total,
             weightedChangeSum:
                 currentGroup.weightedChangeSum + assetWeightedChange,
@@ -48,6 +47,14 @@ final class AssetsScreen extends ConsumerWidget {
     });
   }
 
+  final List<AssetType> sectionOrder = const [
+    AssetType.stock,
+    AssetType.metal,
+    AssetType.commercialEstate,
+    AssetType.currency,
+    AssetType.cash,
+  ];
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
@@ -62,7 +69,7 @@ final class AssetsScreen extends ConsumerWidget {
           child: Column(
             spacing: 12,
             children: [
-              AssetTypeFilterSegmented(
+              AssetTypeFilter(
                 key: key,
                 filter: filter,
                 onSelectionChanged: (value) {
@@ -79,37 +86,15 @@ final class AssetsScreen extends ConsumerWidget {
                     final assetsMap = _foldAssetsInMap(assets, l10n);
                     return ListView(
                       children: [
-                        TotalCostCard(key: super.key, assets: assets),
+                        TotalCostCard(key: key, assets: assets),
 
-                        if (assetsMap.containsKey(AssetType.stock)) ...[
-                          SizedBox(height: spacing),
-                          AssetsByTypeCard(
-                            assetGroup: assetsMap[AssetType.stock]!,
-                          ),
-                        ],
-
-                        if (assetsMap.containsKey(AssetType.metal)) ...[
-                          SizedBox(height: spacing),
-                          AssetsByTypeCard(
-                            assetGroup: assetsMap[AssetType.metal]!,
-                          ),
-                        ],
-
-                        if (assetsMap.containsKey(
-                          AssetType.commercialEstate,
-                        )) ...[
-                          SizedBox(height: spacing),
-                          AssetsByTypeCard(
-                            assetGroup: assetsMap[AssetType.commercialEstate]!,
-                          ),
-                        ],
-
-                        if (assetsMap.containsKey(AssetType.currency)) ...[
-                          SizedBox(height: spacing),
-                          AssetsByTypeCard(
-                            assetGroup: assetsMap[AssetType.currency]!,
-                          ),
-                        ],
+                        for (final sectionType in sectionOrder)
+                          if (assetsMap.containsKey(sectionType)) ...[
+                            SizedBox(height: spacing),
+                            AssetsByTypeCard(
+                              assetGroup: assetsMap[sectionType]!,
+                            ),
+                          ],
                       ],
                     );
                   },

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_study/app/theme/app_colors.dart';
 import 'package:flutter_study/domain/entities/asset.dart';
 import 'package:flutter_study/domain/repositories/asset_repository.dart';
 import 'package:uuid/uuid.dart';
@@ -10,6 +12,8 @@ class MockAssetRepository implements AssetRepository {
       type: AssetType.stock,
       value: 2_622_000,
       changePercent: 1.2,
+      color: 0xFF0000FF,
+      image: 'https://s3-symbol-logo.tradingview.com/gazprom.svg',
     ),
     Asset(
       id: '2',
@@ -17,6 +21,8 @@ class MockAssetRepository implements AssetRepository {
       type: AssetType.stock,
       value: 1_449_000,
       changePercent: 1.2,
+      color: 0xFFFFF700,
+      image: 'https://s3-symbol-logo.tradingview.com/rosneft.svg',
     ),
     Asset(
       id: '5',
@@ -24,6 +30,8 @@ class MockAssetRepository implements AssetRepository {
       type: AssetType.stock,
       value: 1_288_000,
       changePercent: 1.2,
+      color: 0xFF132564,
+      image: 'https://s3-symbol-logo.tradingview.com/phosagro.svg',
     ),
     Asset(
       id: '3',
@@ -31,6 +39,8 @@ class MockAssetRepository implements AssetRepository {
       type: AssetType.metal,
       value: 4_650_000,
       changePercent: 3,
+      color: 0xFFFFD500,
+      image: 'https://s3-symbol-logo.tradingview.com/metal/gold.svg',
     ),
     Asset(
       id: '6',
@@ -38,6 +48,7 @@ class MockAssetRepository implements AssetRepository {
       type: AssetType.commercialEstate,
       value: 366_000,
       changePercent: 1.2,
+      color: 0xFF158D0C,
     ),
     Asset(
       id: '4',
@@ -45,6 +56,8 @@ class MockAssetRepository implements AssetRepository {
       type: AssetType.currency,
       value: 40_000,
       changePercent: 1,
+      color: 0xFF6BCE57,
+      image: 'https://s3-symbol-logo.tradingview.com/country/US.svg',
     ),
   ];
 
@@ -78,6 +91,8 @@ class MockAssetRepository implements AssetRepository {
       type: newAsset.type,
       value: newAsset.value,
       changePercent: newAsset.changePercent,
+      color: newAsset.color,
+      image: newAsset.image,
     );
 
     assets.add(asset);

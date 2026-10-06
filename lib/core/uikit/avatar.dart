@@ -6,7 +6,7 @@ enum AvatarSize { big }
 
 final class Avatar extends StatelessWidget {
   final String name;
-  final Color? fallbackColor;
+  final int? fallbackColor;
   final String? imageUrl;
   final AvatarSize size;
 
@@ -25,7 +25,7 @@ final class Avatar extends StatelessWidget {
     }
   }
 
-  double get _radius => _side * 0.22;
+  double get _radius => _side * 0.3;
 
   String? _buildImageUrl() {
     final url = imageUrl?.trim();
@@ -39,7 +39,7 @@ final class Avatar extends StatelessWidget {
 
     final path = uri.path;
     if (path.endsWith('.svg')) {
-      final newPath = '${path.substring(0, path.length - 4)}--$size.svg';
+      final newPath = '${path.substring(0, path.length - 4)}--${size.name}.svg';
 
       return uri.replace(path: newPath).toString();
     } else {
@@ -72,7 +72,9 @@ final class Avatar extends StatelessWidget {
       width: _side,
       height: _side,
       alignment: Alignment.center,
-      color: fallbackColor ?? context.colors.profit,
+      color: fallbackColor != null
+          ? Color(fallbackColor!)
+          : context.colors.profit,
       child: Text(
         _firstLetter(),
         style: TextStyle(

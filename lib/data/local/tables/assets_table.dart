@@ -1,6 +1,5 @@
 import 'package:drift/drift.dart';
 
-
 class AssetsTable extends Table {
   TextColumn get id => text()();
 
@@ -14,4 +13,8 @@ class AssetsTable extends Table {
 
   @override
   Set<Column> get primaryKey => {id};
+
+  IntColumn get color => integer().nullable()();
+
+  TextColumn get image => text().nullable()();
 }

@@ -516,8 +516,34 @@ class $AssetsTableTable extends AssetsTable
     type: DriftSqlType.double,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _colorMeta = const VerificationMeta('color');
   @override
-  List<GeneratedColumn> get $columns => [id, name, type, value, changePercent];
+  late final GeneratedColumn<int> color = GeneratedColumn<int>(
+    'color',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _imageMeta = const VerificationMeta('image');
+  @override
+  late final GeneratedColumn<String> image = GeneratedColumn<String>(
+    'image',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    type,
+    value,
+    changePercent,
+    color,
+    image,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -570,6 +596,18 @@ class $AssetsTableTable extends AssetsTable
     } else if (isInserting) {
       context.missing(_changePercentMeta);
     }
+    if (data.containsKey('color')) {
+      context.handle(
+        _colorMeta,
+        color.isAcceptableOrUnknown(data['color']!, _colorMeta),
+      );
+    }
+    if (data.containsKey('image')) {
+      context.handle(
+        _imageMeta,
+        image.isAcceptableOrUnknown(data['image']!, _imageMeta),
+      );
+    }
     return context;
   }
 
@@ -599,6 +637,14 @@ class $AssetsTableTable extends AssetsTable
         DriftSqlType.double,
         data['${effectivePrefix}change_percent'],
       )!,
+      color: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}color'],
+      ),
+      image: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}image'],
+      ),
     );
   }
 
@@ -614,12 +660,16 @@ class AssetsTableData extends DataClass implements Insertable<AssetsTableData> {
   final String type;
   final double value;
   final double changePercent;
+  final int? color;
+  final String? image;
   const AssetsTableData({
     required this.id,
     required this.name,
     required this.type,
     required this.value,
     required this.changePercent,
+    this.color,
+    this.image,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -629,6 +679,12 @@ class AssetsTableData extends DataClass implements Insertable<AssetsTableData> {
     map['type'] = Variable<String>(type);
     map['value'] = Variable<double>(value);
     map['change_percent'] = Variable<double>(changePercent);
+    if (!nullToAbsent || color != null) {
+      map['color'] = Variable<int>(color);
+    }
+    if (!nullToAbsent || image != null) {
+      map['image'] = Variable<String>(image);
+    }
     return map;
   }
 
@@ -639,6 +695,12 @@ class AssetsTableData extends DataClass implements Insertable<AssetsTableData> {
       type: Value(type),
       value: Value(value),
       changePercent: Value(changePercent),
+      color: color == null && nullToAbsent
+          ? const Value.absent()
+          : Value(color),
+      image: image == null && nullToAbsent
+          ? const Value.absent()
+          : Value(image),
     );
   }
 
@@ -653,6 +715,8 @@ class AssetsTableData extends DataClass implements Insertable<AssetsTableData> {
       type: serializer.fromJson<String>(json['type']),
       value: serializer.fromJson<double>(json['value']),
       changePercent: serializer.fromJson<double>(json['changePercent']),
+      color: serializer.fromJson<int?>(json['color']),
+      image: serializer.fromJson<String?>(json['image']),
     );
   }
   @override
@@ -664,6 +728,8 @@ class AssetsTableData extends DataClass implements Insertable<AssetsTableData> {
       'type': serializer.toJson<String>(type),
       'value': serializer.toJson<double>(value),
       'changePercent': serializer.toJson<double>(changePercent),
+      'color': serializer.toJson<int?>(color),
+      'image': serializer.toJson<String?>(image),
     };
   }
 
@@ -673,12 +739,16 @@ class AssetsTableData extends DataClass implements Insertable<AssetsTableData> {
     String? type,
     double? value,
     double? changePercent,
+    Value<int?> color = const Value.absent(),
+    Value<String?> image = const Value.absent(),
   }) => AssetsTableData(
     id: id ?? this.id,
     name: name ?? this.name,
     type: type ?? this.type,
     value: value ?? this.value,
     changePercent: changePercent ?? this.changePercent,
+    color: color.present ? color.value : this.color,
+    image: image.present ? image.value : this.image,
   );
   AssetsTableData copyWithCompanion(AssetsTableCompanion data) {
     return AssetsTableData(
@@ -689,6 +759,8 @@ class AssetsTableData extends DataClass implements Insertable<AssetsTableData> {
       changePercent: data.changePercent.present
           ? data.changePercent.value
           : this.changePercent,
+      color: data.color.present ? data.color.value : this.color,
+      image: data.image.present ? data.image.value : this.image,
     );
   }
 
@@ -699,13 +771,16 @@ class AssetsTableData extends DataClass implements Insertable<AssetsTableData> {
           ..write('name: $name, ')
           ..write('type: $type, ')
           ..write('value: $value, ')
-          ..write('changePercent: $changePercent')
+          ..write('changePercent: $changePercent, ')
+          ..write('color: $color, ')
+          ..write('image: $image')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, name, type, value, changePercent);
+  int get hashCode =>
+      Object.hash(id, name, type, value, changePercent, color, image);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -714,7 +789,9 @@ class AssetsTableData extends DataClass implements Insertable<AssetsTableData> {
           other.name == this.name &&
           other.type == this.type &&
           other.value == this.value &&
-          other.changePercent == this.changePercent);
+          other.changePercent == this.changePercent &&
+          other.color == this.color &&
+          other.image == this.image);
 }
 
 class AssetsTableCompanion extends UpdateCompanion<AssetsTableData> {
@@ -723,6 +800,8 @@ class AssetsTableCompanion extends UpdateCompanion<AssetsTableData> {
   final Value<String> type;
   final Value<double> value;
   final Value<double> changePercent;
+  final Value<int?> color;
+  final Value<String?> image;
   final Value<int> rowid;
   const AssetsTableCompanion({
     this.id = const Value.absent(),
@@ -730,6 +809,8 @@ class AssetsTableCompanion extends UpdateCompanion<AssetsTableData> {
     this.type = const Value.absent(),
     this.value = const Value.absent(),
     this.changePercent = const Value.absent(),
+    this.color = const Value.absent(),
+    this.image = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   AssetsTableCompanion.insert({
@@ -738,6 +819,8 @@ class AssetsTableCompanion extends UpdateCompanion<AssetsTableData> {
     required String type,
     required double value,
     required double changePercent,
+    this.color = const Value.absent(),
+    this.image = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        name = Value(name),
@@ -750,6 +833,8 @@ class AssetsTableCompanion extends UpdateCompanion<AssetsTableData> {
     Expression<String>? type,
     Expression<double>? value,
     Expression<double>? changePercent,
+    Expression<int>? color,
+    Expression<String>? image,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -758,6 +843,8 @@ class AssetsTableCompanion extends UpdateCompanion<AssetsTableData> {
       if (type != null) 'type': type,
       if (value != null) 'value': value,
       if (changePercent != null) 'change_percent': changePercent,
+      if (color != null) 'color': color,
+      if (image != null) 'image': image,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -768,6 +855,8 @@ class AssetsTableCompanion extends UpdateCompanion<AssetsTableData> {
     Value<String>? type,
     Value<double>? value,
     Value<double>? changePercent,
+    Value<int?>? color,
+    Value<String?>? image,
     Value<int>? rowid,
   }) {
     return AssetsTableCompanion(
@@ -776,6 +865,8 @@ class AssetsTableCompanion extends UpdateCompanion<AssetsTableData> {
       type: type ?? this.type,
       value: value ?? this.value,
       changePercent: changePercent ?? this.changePercent,
+      color: color ?? this.color,
+      image: image ?? this.image,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -798,6 +889,12 @@ class AssetsTableCompanion extends UpdateCompanion<AssetsTableData> {
     if (changePercent.present) {
       map['change_percent'] = Variable<double>(changePercent.value);
     }
+    if (color.present) {
+      map['color'] = Variable<int>(color.value);
+    }
+    if (image.present) {
+      map['image'] = Variable<String>(image.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -812,6 +909,8 @@ class AssetsTableCompanion extends UpdateCompanion<AssetsTableData> {
           ..write('type: $type, ')
           ..write('value: $value, ')
           ..write('changePercent: $changePercent, ')
+          ..write('color: $color, ')
+          ..write('image: $image, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -1092,6 +1191,8 @@ typedef $$AssetsTableTableCreateCompanionBuilder =
       required String type,
       required double value,
       required double changePercent,
+      Value<int?> color,
+      Value<String?> image,
       Value<int> rowid,
     });
 typedef $$AssetsTableTableUpdateCompanionBuilder =
@@ -1101,6 +1202,8 @@ typedef $$AssetsTableTableUpdateCompanionBuilder =
       Value<String> type,
       Value<double> value,
       Value<double> changePercent,
+      Value<int?> color,
+      Value<String?> image,
       Value<int> rowid,
     });
 
@@ -1135,6 +1238,16 @@ class $$AssetsTableTableFilterComposer
 
   ColumnFilters<double> get changePercent => $composableBuilder(
     column: $table.changePercent,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get color => $composableBuilder(
+    column: $table.color,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get image => $composableBuilder(
+    column: $table.image,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -1172,6 +1285,16 @@ class $$AssetsTableTableOrderingComposer
     column: $table.changePercent,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<int> get color => $composableBuilder(
+    column: $table.color,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get image => $composableBuilder(
+    column: $table.image,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$AssetsTableTableAnnotationComposer
@@ -1199,6 +1322,12 @@ class $$AssetsTableTableAnnotationComposer
     column: $table.changePercent,
     builder: (column) => column,
   );
+
+  GeneratedColumn<int> get color =>
+      $composableBuilder(column: $table.color, builder: (column) => column);
+
+  GeneratedColumn<String> get image =>
+      $composableBuilder(column: $table.image, builder: (column) => column);
 }
 
 class $$AssetsTableTableTableManager
@@ -1237,6 +1366,8 @@ class $$AssetsTableTableTableManager
                 Value<String> type = const Value.absent(),
                 Value<double> value = const Value.absent(),
                 Value<double> changePercent = const Value.absent(),
+                Value<int?> color = const Value.absent(),
+                Value<String?> image = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => AssetsTableCompanion(
                 id: id,
@@ -1244,6 +1375,8 @@ class $$AssetsTableTableTableManager
                 type: type,
                 value: value,
                 changePercent: changePercent,
+                color: color,
+                image: image,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -1253,6 +1386,8 @@ class $$AssetsTableTableTableManager
                 required String type,
                 required double value,
                 required double changePercent,
+                Value<int?> color = const Value.absent(),
+                Value<String?> image = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => AssetsTableCompanion.insert(
                 id: id,
@@ -1260,6 +1395,8 @@ class $$AssetsTableTableTableManager
                 type: type,
                 value: value,
                 changePercent: changePercent,
+                color: color,
+                image: image,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

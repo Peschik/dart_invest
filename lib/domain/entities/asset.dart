@@ -12,6 +12,8 @@ abstract class Asset with _$Asset {
     required AssetType type,
     required double value,
     required double changePercent,
+    int? color,
+    String? image,
   }) = _Asset;
 }
 
@@ -22,5 +24,7 @@ abstract class NewAsset with _$NewAsset {
     required AssetType type,
     required double value,
     required double changePercent,
+    int? color,
+    String? image,
   }) = _NewAsset;
 }

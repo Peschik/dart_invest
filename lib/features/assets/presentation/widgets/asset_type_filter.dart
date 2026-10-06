@@ -4,8 +4,8 @@ import 'package:flutter_study/core/utils/get_asset_type_label.dart';
 import 'package:flutter_study/domain/entities/asset.dart';
 import 'package:flutter_study/l10n/app_localizations.dart';
 
-final class AssetTypeFilterSegmented extends StatelessWidget {
-  const AssetTypeFilterSegmented({
+final class AssetTypeFilter extends StatelessWidget {
+  const AssetTypeFilter({
     required super.key,
     required this.filter,
     required this.onSelectionChanged,

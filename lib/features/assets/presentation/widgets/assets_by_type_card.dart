@@ -58,7 +58,8 @@ final class AssetsByTypeCard extends StatelessWidget {
                           children: [
                             Avatar(
                               name: asset.name,
-                              fallbackColor: context.colors.profit,
+                              fallbackColor: asset.color,
+                              imageUrl: asset.image,
                             ),
                             const SizedBox(width: 10),
                             Column(

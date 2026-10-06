@@ -41,6 +41,8 @@ class DriftAssetRepository implements AssetRepository {
         type: newAsset.type,
         value: newAsset.value,
         changePercent: newAsset.changePercent,
+        color: newAsset.color,
+        image: newAsset.image,
       ),
     );
 
@@ -82,8 +84,21 @@ class DriftAssetRepository implements AssetRepository {
           type: asset.type,
           value: asset.value,
           changePercent: asset.changePercent,
+          color: asset.color,
+          image: asset.image,
         ),
       );
     }
+  }
+
+  Future<void> updateAssetPresentation(Asset mockAsset) {
+    return (_db.update(
+      _db.assetsTable,
+    )..where((asset) => asset.name.equals(mockAsset.name))).write(
+      AssetsTableCompanion(
+        color: Value(mockAsset.color),
+        image: Value(mockAsset.image),
+      ),
+    );
   }
 }
